@@ -36,12 +36,12 @@
     <version>1.1.8</version>
     <configuration>
         <targetClasses>
-            <param>netris.logiikka.*</param>
-            <param>netris.tekoaly.*</param>
+            <param>netris.netris.*</param>
+            <param>netris.netris.*</param>
         </targetClasses>
         <targetTests>
-            <param>netris.logiikka.*</param>
-            <param>netris.tekoaly.*</param>
+            <param>netris.netris.*</param>
+            <param>netris.netris.*</param>
         </targetTests>
     </configuration>
     </plugin>
