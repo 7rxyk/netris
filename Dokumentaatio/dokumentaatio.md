@@ -6,5 +6,6 @@ Käyttäjät: Minä
 Toiminnot:
 
 - Alkuun peliin voisi tulla start nappula, joka aloittaa pelin.
-- Pelin alettua palikoita alkaa putoilla ja käyttäjä voi tietyillä pyörittää palikoita haluamaansa asentoon ja liikuttaa vasemmalla tai 
-oikealla nuolinäppäimellä niitä peliruudun alueella. 
+- Pelin alettua palikoita alkaa putoilla ja käyttäjä voi tietyillä pyörittää palikoita haluamaansa asentoon ja liikuttaa vasemmalla tai oikealla nuolinäppäimellä niitä peliruudun alueella. 
+- Myös joku lopeta peli nappula voisi olla hyvä, yleensä kyllästyy ennen kuin häviää ja pause
+
