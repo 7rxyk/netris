@@ -1,0 +1,4 @@
+netris\Board.class
+netris\Shape.class
+netris\Netris.class
+netris\Shape$Pieces.class
