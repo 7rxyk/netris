@@ -5,5 +5,5 @@ Netris on tetriksen kaltainen palikkapeli, jossa erimuotoiset palikat satunnaise
 
 # Dokumentaatio
 
-[Aiheen kuvaus](Dokumentaatio/aiheenKuvausJaRakenne.md)
-[Tuntikirjanpito](Dokumentaatio/tuntikirjanpito.md)
+- [Aiheen kuvaus](Dokumentaatio/aiheenKuvausJaRakenne.md)
+- [Tuntikirjanpito](Dokumentaatio/tuntikirjanpito.md)
