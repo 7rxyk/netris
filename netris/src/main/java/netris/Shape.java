@@ -1,28 +1,24 @@
 package netris;
 
 import java.util.Random;
-import java.lang.Math;
 
 public class Shape {
 
-    enum Pieces {
-        EiMuotoa, Zeta, Assa, Suora,
-        Tee, Nelio, Alla, Ltoisinpain
+    protected enum Pieces {
+        TestiEiMuotoa, Z, S, Suora, T, Nelio, L, PeiliL
     };
 
-    private Pieces shape;
+    private Pieces pieceShape;
     private int coordinates[][];
     private int[][][] coordinatesTable;
 
     public Shape() {
 
         coordinates = new int[4][2];
-        setShape(Pieces.EiMuotoa);
-
+        setShape(Pieces.TestiEiMuotoa);
     }
 
     public void setShape(Pieces shape) {
-        this.shape = shape;
 
         coordinatesTable = new int[][][]{
             {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
@@ -40,6 +36,7 @@ public class Shape {
                 coordinates[i][j] = coordinatesTable[shape.ordinal()][i][j];
             }
         }
+        pieceShape = shape;
     }
 
     private void setX(int index, int x) {
@@ -59,10 +56,11 @@ public class Shape {
     }
 
     public Pieces getShape() {
-        return shape;
+        return pieceShape;
     }
 
     public void setRandomShape() {
+
         Random r = new Random();
         int x = Math.abs(r.nextInt()) % 7 + 1;
         Pieces[] values = Pieces.values();
@@ -70,7 +68,9 @@ public class Shape {
     }
 
     public int minX() {
+
         int m = coordinates[0][0];
+
         for (int i = 0; i < 4; i++) {
             m = Math.min(m, coordinates[i][0]);
         }
@@ -79,6 +79,7 @@ public class Shape {
 
     public int minY() {
         int m = coordinates[0][1];
+
         for (int i = 0; i < 4; i++) {
             m = Math.min(m, coordinates[i][1]);
         }
@@ -86,12 +87,13 @@ public class Shape {
     }
 
     public Shape rotateLeft() {
-        if (shape == Pieces.Nelio) {
+
+        if (pieceShape == Pieces.Nelio) {
             return this;
         }
 
         Shape result = new Shape();
-        result.shape = shape;
+        result.pieceShape = pieceShape;
 
         for (int i = 0; i < 4; ++i) {
             result.setX(i, y(i));
@@ -101,12 +103,13 @@ public class Shape {
     }
 
     public Shape rotateRight() {
-        if (shape == Pieces.Nelio) {
+
+        if (pieceShape == Pieces.Nelio) {
             return this;
         }
 
         Shape result = new Shape();
-        result.shape = shape;
+        result.pieceShape = pieceShape;
 
         for (int i = 0; i < 4; ++i) {
             result.setX(i, -y(i));
