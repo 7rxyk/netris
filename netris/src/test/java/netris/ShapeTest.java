@@ -3,14 +3,12 @@ package netris;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 public class ShapeTest {
-
-    private Object Object;
-
+    
     public ShapeTest() {
     }
 
@@ -21,76 +19,24 @@ public class ShapeTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of T method, of class Shape.
+     * Test of setMuoto method, of class Shape.
      */
     @Test
-    public void testT() {
-        System.out.println("T");
-        Object = null;
+    public void testSetMuoto() {
+        System.out.println("setMuoto");
+        Shape.Palikka muoto = null;
         Shape instance = new Shape();
-        instance.T(<error>);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of Square method, of class Shape.
-     */
-    @Test
-    public void testSquare() {
-        System.out.println("Nelio");
-        Object = null;
-        Shape instance = new Shape();
-        instance.Nelio(<error>);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of L method, of class Shape.
-     */
-    @Test
-    public void testL() {
-        System.out.println("L");
-        Object = null;
-        Shape instance = new Shape();
-        instance.L(<error>);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of MirrorL method, of class Shape.
-     */
-    @Test
-    public void testMirrorL() {
-        System.out.println("PeiliL");
-        Object = null;
-        Shape instance = new Shape();
-        instance.PeiliL(<error>);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setShape method, of class Shape.
-     */
-    @Test
-    public void testSetShape() {
-        System.out.println("setShape");
-        Shape.Pieces shape = null;
-        Shape instance = new Shape();
-        instance.setShape(shape);
+        instance.setMuoto(muoto);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -126,27 +72,27 @@ public class ShapeTest {
     }
 
     /**
-     * Test of getShape method, of class Shape.
+     * Test of getMuoto method, of class Shape.
      */
     @Test
-    public void testGetShape() {
-        System.out.println("getShape");
+    public void testGetMuoto() {
+        System.out.println("getMuoto");
         Shape instance = new Shape();
-        Shape.Pieces expResult = null;
-        Shape.Pieces result = instance.getShape();
+        Shape.Palikka expResult = null;
+        Shape.Palikka result = instance.getMuoto();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of setRandomShape method, of class Shape.
+     * Test of setRandomMuoto method, of class Shape.
      */
     @Test
-    public void testSetRandomShape() {
-        System.out.println("setRandomShape");
+    public void testSetRandomMuoto() {
+        System.out.println("setRandomMuoto");
         Shape instance = new Shape();
-        instance.setRandomShape();
+        instance.setRandomMuoto();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -180,28 +126,28 @@ public class ShapeTest {
     }
 
     /**
-     * Test of rotateLeft method, of class Shape.
+     * Test of vasemmalle method, of class Shape.
      */
     @Test
-    public void testRotateLeft() {
-        System.out.println("rotateLeft");
+    public void testVasemmalle() {
+        System.out.println("vasemmalle");
         Shape instance = new Shape();
         Shape expResult = null;
-        Shape result = instance.rotateLeft();
+        Shape result = instance.vasemmalle();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of rotateRight method, of class Shape.
+     * Test of oikealle method, of class Shape.
      */
     @Test
-    public void testRotateRight() {
-        System.out.println("rotateRight");
+    public void testOikealle() {
+        System.out.println("oikealle");
         Shape instance = new Shape();
         Shape expResult = null;
-        Shape result = instance.rotateRight();
+        Shape result = instance.oikealle();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
