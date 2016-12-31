@@ -1,13 +1,11 @@
-
 package netris;
 
 import java.awt.event.KeyEvent;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 public class BoardTest {
-    
+
     @Test
     public void testThatPPausesGame() {
         Board boardToTest = new Board(new Netris());
@@ -19,8 +17,7 @@ public class BoardTest {
         boardToTest.keyListener.keyPressed(pPress);
         assertTrue(boardToTest.tauolla);
     }
-    
-    
+
     @Test
     public void testThatLeftCannotMoveBlockToNegative() {
         Board boardToTest = new Board(new Netris());
@@ -32,5 +29,5 @@ public class BoardTest {
         boardToTest.keyListener.keyPressed(pPress);
         assertEquals(boardToTest.nykyinenX, 0);
     }
-        
+
 }

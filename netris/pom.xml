@@ -54,12 +54,14 @@
     <version>1.1.8</version>
     <configuration>
         <targetClasses>
-            <param>netris.netris.*</param>
-            <param>netris.netris.*</param>
+            <param>netris.Board.*</param>
+            <param>netris.Netris.*</param>
+            <param>netris.Shape.*</param>
         </targetClasses>
         <targetTests>
-            <param>netris.netris.*</param>
-            <param>netris.netris.*</param>
+            <param>netris.BoardTest.*</param>
+            <param>netris.NetrisTest.*</param>
+            <param>netris.ShapeTest.*</param>
         </targetTests>
     </configuration>
     </plugin>

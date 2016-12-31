@@ -15,8 +15,8 @@ import netris.Shape.Palikka;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int Leveys = 10;
-    private final int Korkeus = 22;
+    private final int leveys = 10;
+    private final int korkeus = 22;
 
     private Timer timer;
     private boolean palikkaAlhaalla = false;
@@ -30,21 +30,19 @@ public class Board extends JPanel implements ActionListener {
     private Palikka[] board;
 
     public Board(Netris parent) {
-
         initBoard(parent);
     }
-    
+
     public TAdapter keyListener;
 
     private void initBoard(Netris parent) {
-
         setFocusable(true);
         nykyinenPalikka = new Shape();
         timer = new Timer(400, this);
         timer.start();
 
         statusbar = parent.getStatusBar();
-        board = new Palikka[Leveys * Korkeus];
+        board = new Palikka[leveys * korkeus];
         this.keyListener = new TAdapter();
         addKeyListener(this.keyListener);
         clearBoard();
@@ -52,7 +50,6 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (palikkaAlhaalla) {
             palikkaAlhaalla = false;
             uusiPalikka();
@@ -62,19 +59,18 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private int squareWidth() {
-        return (int) getSize().getWidth() / Leveys;
+        return (int) getSize().getWidth() / leveys;
     }
 
     private int squareHeight() {
-        return (int) getSize().getHeight() / Korkeus;
+        return (int) getSize().getHeight() / korkeus;
     }
 
     private Palikka shapeAt(int x, int y) {
-        return board[(y * Leveys) + x];
+        return board[(y * leveys) + x];
     }
 
     public void start() {
-
         if (tauolla) {
             return;
         }
@@ -88,7 +84,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void pause() {
-
         if (!paalla) {
             return;
         }
@@ -104,40 +99,35 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void doDrawing(Graphics g) {
-
         Dimension size = getSize();
-        int boardTop = (int) size.getHeight() - Korkeus * squareHeight();
-
-        for (int i = 0; i < Korkeus; ++i) {
-            for (int j = 0; j < Leveys; ++j) {
-                Palikka Palikka = shapeAt(j, Korkeus - i - 1);
-                if (Palikka != Palikka.TestiMuoto) {
+        int boardTop = (int) size.getHeight() - korkeus * squareHeight();
+        for (int i = 0; i < korkeus; ++i) {
+            for (int j = 0; j < leveys; ++j) {
+                Palikka palikka = shapeAt(j, korkeus - i - 1);
+                if (palikka != Palikka.TestiMuoto) {
                     drawSquare(g, 0 + j * squareWidth(),
-                            boardTop + i * squareHeight(), Palikka);
+                            boardTop + i * squareHeight(), palikka);
                 }
             }
         }
-
         if (nykyinenPalikka.getMuoto() != Palikka.TestiMuoto) {
             for (int i = 0; i < 4; ++i) {
                 int x = nykyinenX + nykyinenPalikka.x(i);
                 int y = nykyinenY - nykyinenPalikka.y(i);
                 drawSquare(g, 0 + x * squareWidth(),
-                        boardTop + (Korkeus - y - 1) * squareHeight(),
-                        nykyinenPalikka.getMuoto());
+                    boardTop + (korkeus - y - 1) * squareHeight(),
+                    nykyinenPalikka.getMuoto());
             }
         }
     }
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         doDrawing(g);
     }
 
     private void dropDown() {
-
         int newY = nykyinenY;
         while (newY > 0) {
             if (!tryMove(nykyinenPalikka, nykyinenX, newY - 1)) {
@@ -150,26 +140,23 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void taysiRivi() {
-
         if (!tryMove(nykyinenPalikka, nykyinenX, nykyinenY - 1)) {
             palaPudotettu();
         }
     }
 
     private void clearBoard() {
-
-        for (int i = 0; i < Korkeus * Leveys; ++i) {
+        for (int i = 0; i < korkeus * leveys; ++i) {
             board[i] = Palikka.TestiMuoto;
         }
     }
 
     private void palaPudotettu() {
-
         for (int i = 0; i < 4; ++i) {
 
             int x = nykyinenX + nykyinenPalikka.x(i);
             int y = nykyinenY - nykyinenPalikka.y(i);
-            board[(y * Leveys) + x] = nykyinenPalikka.getMuoto();
+            board[(y * leveys) + x] = nykyinenPalikka.getMuoto();
         }
         poistaTaysiRivi();
         if (!palikkaAlhaalla) {
@@ -178,10 +165,9 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void uusiPalikka() {
-
         nykyinenPalikka.setRandomMuoto();
-        nykyinenX = Leveys / 2 + 1;
-        nykyinenY = Korkeus - 1 + nykyinenPalikka.minY();
+        nykyinenX = leveys / 2 + 1;
+        nykyinenY = korkeus - 1 + nykyinenPalikka.minY();
 
         if (!tryMove(nykyinenPalikka, nykyinenX, nykyinenY)) {
 
@@ -193,22 +179,18 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private boolean tryMove(Shape uusiPalikka, int newX, int newY) {
-
         for (int i = 0; i < 4; ++i) {
 
             int x = newX + uusiPalikka.x(i);
             int y = newY - uusiPalikka.y(i);
 
-            if (x < 0 || x >= Leveys || y < 0 || y >= Korkeus) {
+            if (x < 0 || x >= leveys || y < 0 || y >= korkeus) {
                 return false;
             }
             if (shapeAt(x, y) != Palikka.TestiMuoto) {
                 return false;
             }
         }
-
-        System.out.println("+++++++" + newX +" asd "+ newY);
-        
         nykyinenPalikka = uusiPalikka;
         nykyinenX = newX;
         nykyinenY = newY;
@@ -221,20 +203,20 @@ public class Board extends JPanel implements ActionListener {
 
         int taysienRivienMaara = 0;
 
-        for (int i = Korkeus - 1; i >= 0; --i) {
-            boolean TaysiRivi = true;
+        for (int i = korkeus - 1; i >= 0; --i) {
+            boolean taysiRivi = true;
 
-            for (int j = 0; j < Leveys; ++j) {
+            for (int j = 0; j < leveys; ++j) {
                 if (shapeAt(j, i) == Palikka.TestiMuoto) {
-                    TaysiRivi = false;
+                    taysiRivi = false;
                     break;
                 }
             }
-            if (TaysiRivi) {
+            if (taysiRivi) {
                 ++taysienRivienMaara;
-                for (int k = i; k < Korkeus - 1; ++k) {
-                    for (int j = 0; j < Leveys; ++j) {
-                        board[(k * Leveys) + j] = shapeAt(j, k + 1);
+                for (int k = i; k < korkeus - 1; ++k) {
+                    for (int j = 0; j < leveys; ++j) {
+                        board[(k * leveys) + j] = shapeAt(j, k + 1);
                     }
                 }
             }
@@ -248,14 +230,14 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void drawSquare(Graphics g, int x, int y, Palikka Palikka) {
+    private void drawSquare(Graphics g, int x, int y, Palikka palikka) {
 
         Color varit[] = {new Color(0, 0, 0), new Color(204, 102, 102),
             new Color(102, 204, 102), new Color(102, 102, 204),
             new Color(204, 204, 102), new Color(204, 102, 204),
             new Color(102, 204, 204), new Color(218, 170, 0)
         };
-        Color vari = varit[Palikka.ordinal()];
+        Color vari = varit[palikka.ordinal()];
         g.setColor(vari);
         g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 
@@ -268,30 +250,24 @@ public class Board extends JPanel implements ActionListener {
                 x + squareWidth() - 1, y + squareHeight() - 1);
         g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                 x + squareWidth() - 1, y + 1);
-
     }
 
     class TAdapter extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent painallus) {
-
-            System.out.println("asdasdasdasd"+ paalla +" ((( "+ nykyinenPalikka.getMuoto());
             if (!paalla || nykyinenPalikka.getMuoto() == Palikka.TestiMuoto) {
                 return;
             }
-           
+
             int keycode = painallus.getKeyCode();
-             System.out.println("asdasdasdasd" + keycode);
             if (keycode == 'p' || keycode == 'P') {
                 pause();
                 return;
             }
-            System.out.println("asdasdasdasd");
             if (tauolla) {
                 return;
             }
-            System.out.println("asdasdasdasd" + keycode);
             switch (keycode) {
                 case KeyEvent.VK_LEFT:
                     tryMove(nykyinenPalikka, nykyinenX - 1, nykyinenY);

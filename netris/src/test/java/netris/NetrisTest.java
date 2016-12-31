@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NetrisTest {
-    
+
     @Test
     public void testMainSetsPeliVisible() {
         System.out.println("main");

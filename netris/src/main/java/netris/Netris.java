@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class Netris extends JFrame {
+
     private JLabel statusbar;
 
     public Netris() {
@@ -13,7 +14,7 @@ public class Netris extends JFrame {
     }
 
     public Board pelilauta;
-    
+
     private void uusiPeli() {
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
