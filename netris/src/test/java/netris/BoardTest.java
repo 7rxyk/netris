@@ -32,17 +32,5 @@ public class BoardTest {
         boardToTest.keyListener.keyPressed(pPress);
         assertEquals(boardToTest.nykyinenX, 0);
     }
-    
-     @Test
-    public void testThatRightArrowMovesBlockToRight() {
-        Board boardToTest = new Board(new Netris());
-        boardToTest.paalla = true;
-        boardToTest.nykyinenPalikka.setMuoto(Shape.Palikka.Nelio);
-        assertEquals(boardToTest.nykyinenX, 0);
-        KeyEvent pPress = new KeyEvent(boardToTest, 0, 0, 0, 0, 'p');
-        pPress.setKeyCode(KeyEvent.VK_RIGHT);
-        boardToTest.keyListener.keyPressed(pPress);
-        assertEquals(boardToTest.nykyinenX, 1);
-    }
         
 }

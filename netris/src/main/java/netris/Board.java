@@ -207,6 +207,8 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
+        System.out.println("+++++++" + newX +" asd "+ newY);
+        
         nykyinenPalikka = uusiPalikka;
         nykyinenX = newX;
         nykyinenY = newY;
@@ -278,8 +280,9 @@ public class Board extends JPanel implements ActionListener {
             if (!paalla || nykyinenPalikka.getMuoto() == Palikka.TestiMuoto) {
                 return;
             }
-            System.out.println("asdasdasdasd");
+           
             int keycode = painallus.getKeyCode();
+             System.out.println("asdasdasdasd" + keycode);
             if (keycode == 'p' || keycode == 'P') {
                 pause();
                 return;
@@ -295,6 +298,7 @@ public class Board extends JPanel implements ActionListener {
                     break;
 
                 case KeyEvent.VK_RIGHT:
+                    System.out.println("right");
                     tryMove(nykyinenPalikka, nykyinenX + 1, nykyinenY);
                     break;
 

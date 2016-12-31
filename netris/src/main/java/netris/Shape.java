@@ -9,7 +9,7 @@ public class Shape {
     };
 
     private Palikka palikanMuoto;
-    private int koordinaatit[][];
+    public int koordinaatit[][];
     private int[][][] koordinaatitTaulukko;
 
     public Shape() {
