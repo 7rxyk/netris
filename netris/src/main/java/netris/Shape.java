@@ -1,92 +1,122 @@
 package netris;
 
-import java.util.Random;
+/**
+ * Shape luokka: tarkoitus hoitaa NetrisPala-luokan palojen koordinaattien yms.
+ * tarkempi alustus ja luoda Shape netrispala olio
+ */
+public final class Shape {
 
-public class Shape {
+    public NetrisPalat muoto;
+    public int koordinaatti[][];
 
-    protected enum Palikka {
-        TestiMuoto, Z, S, Suora, T, Nelio, L, PeiliL
-    };
-
-    private Palikka palikanMuoto;
-    public int koordinaatit[][];
-    private int[][][] koordinaatitTaulukko;
-
+    /**
+     * Metodilla asetetaan parametrillä tuleva muoto Shape olion
+     * koordinaatteihin
+     *
+     * @see kutsuu toista metodia asetaMuoto, jonka parametrinä asetettava muoto
+     * menee.
+     */
     public Shape() {
-        koordinaatit = new int[4][2];
-        setMuoto(Palikka.TestiMuoto);
+        koordinaatti = new int[4][2];
+        asetaMuoto(NetrisPalat.Testi);
     }
 
-    public void setMuoto(Palikka muoto) {
-        koordinaatitTaulukko = new int[][][]{
-            {{0, 0}, {0, 0}, {0, 0}, {0, 0}},
-            {{0, -1}, {0, 0}, {-1, 0}, {-1, 1}},
-            {{0, -1}, {0, 0}, {1, 0}, {1, 1}},
-            {{0, -1}, {0, 0}, {0, 1}, {0, 2}},
-            {{-1, 0}, {0, 0}, {1, 0}, {0, 1}},
-            {{0, 0}, {1, 0}, {0, 1}, {1, 1}},
-            {{-1, -1}, {0, -1}, {0, 0}, {0, 1}},
-            {{1, -1}, {0, -1}, {0, 0}, {0, 1}}
-        };
-
+    /**
+     * Metodilla asetetaan parametrillä tuleva muoto Shape olion
+     * koordinaatteihin
+     *
+     * @param muoto on Shape olioon asetettava NetrisPala muoto.
+     */
+    public void asetaMuoto(NetrisPalat muoto) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 2; ++j) {
-                koordinaatit[i][j] = koordinaatitTaulukko[muoto.ordinal()][i][j];
+                koordinaatti[i][j] = muoto.koordinaatit[i][j];
             }
         }
-        palikanMuoto = muoto;
+        this.muoto = muoto;
     }
 
     private void setX(int index, int x) {
-        koordinaatit[index][0] = x;
+        koordinaatti[index][0] = x;
     }
 
     private void setY(int index, int y) {
-        koordinaatit[index][1] = y;
+        koordinaatti[index][1] = y;
     }
 
+    /**
+     * x metodi antaa index parametrinä olevan x koordinaatin
+     *
+     * @param index on toisen metodin tarjoama indeksi mistä x koordinaatti
+     * halutaan
+     * @return palauttaa shape olion sen hetkisen y koordinaatin
+     */
     public int x(int index) {
-        return koordinaatit[index][0];
+        return koordinaatti[index][0];
     }
 
+    /**
+     * y metodi antaa index parametrinä olevan y koordinaatin
+     *
+     * @param index on toisen metodin tarjoama indeksi mistä x koordinaatti
+     * halutaan
+     * @return palauttaa shape olion sen hetkisen y koordinaatin
+     */
     public int y(int index) {
-        return koordinaatit[index][1];
+        return koordinaatti[index][1];
     }
 
-    public Palikka getMuoto() {
-        return palikanMuoto;
+    public NetrisPalat getMuoto() {
+        return muoto;
     }
 
+    /**
+     * Asetetaan palaksi random muoto
+     *
+     * @see Random-muoto asetetaan asetaMuoto metodikutsun parametriksi
+     */
     public void setRandomMuoto() {
-
-        Random r = new Random();
-        int x = Math.abs(r.nextInt()) % 7 + 1;
-        Palikka[] values = Palikka.values();
-        setMuoto(values[x]);
+        asetaMuoto(NetrisPalat.getRandomPala());
     }
 
+    /**
+     * minX käy läpi shape olion koordinaatit ja palauttaa niistä pienimmän
+     *
+     * @return palauttaa shape oliolle pienimmän X koordinaatit
+     */
     public int minX() {
-        int m = koordinaatit[0][0];
+        int m = koordinaatti[0][0];
         for (int i = 0; i < 4; i++) {
-            m = Math.min(m, koordinaatit[i][0]);
+            m = Math.min(m, koordinaatti[i][0]);
         }
         return m;
     }
 
+    /**
+     * minY käy läpi shape olion koordinaatit ja palauttaa niistä pienimmän
+     *
+     * @return palauttaa shape oliolle pienimmän Y koordinaatit
+     */
     public int minY() {
-        int m = koordinaatit[0][1];
+        int m = koordinaatti[0][1];
         for (int i = 0; i < 4; i++) {
-            m = Math.min(m, koordinaatit[i][1]);
+            m = Math.min(m, koordinaatti[i][1]);
         }
         return m;
     }
 
+    /**
+     * Vasemmalle metodi reagoi toisen luokan käskyyn pyörittää Shape palaa
+     * vasemmalle ja antaa palikalle uudet koordinaatit.
+     *
+     * @return palauttaa shape oliolle uudet koordinaatit
+     */
     public Shape vasemmalle() {
-        if (palikanMuoto == Palikka.Nelio) {
+        if (muoto == NetrisPalat.Nelio) {
             return this;
         }
         Shape tulos = new Shape();
-        tulos.palikanMuoto = palikanMuoto;
+        tulos.muoto = muoto;
         for (int i = 0; i < 4; ++i) {
             tulos.setX(i, y(i));
             tulos.setY(i, -x(i));
@@ -94,13 +124,18 @@ public class Shape {
         return tulos;
     }
 
+    /**
+     * Oikealle metodi reagoi toisen luokan käskyyn pyörittää Shape palaa
+     * oikealle ja antaa palikalle uudet koordinaatit.
+     *
+     * @return palauttaa shape oliolle uudet koordinaatit
+     */
     public Shape oikealle() {
-        if (palikanMuoto == Palikka.Nelio) {
+        if (muoto == NetrisPalat.Nelio) {
             return this;
         }
         Shape tulos = new Shape();
-        tulos.palikanMuoto = palikanMuoto;
-
+        tulos.muoto = muoto;
         for (int i = 0; i < 4; ++i) {
             tulos.setX(i, -y(i));
             tulos.setY(i, x(i));

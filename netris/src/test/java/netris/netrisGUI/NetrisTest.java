@@ -1,11 +1,7 @@
-package netris;
+package netris.netrisGUI;
 
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import org.junit.After;
-import org.junit.Before;
+import netris.netrisGUI.Netris;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class NetrisTest {
 
