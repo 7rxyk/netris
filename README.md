@@ -8,4 +8,4 @@ Netris on tetriksen kaltainen palikkapeli, jossa erimuotoiset palikat satunnaise
 - [Aiheen kuvaus](Dokumentaatio/aiheenKuvausJaRakenne.md)
 - [Tuntikirjanpito](Dokumentaatio/tuntikirjanpito.md)
 - [Pit raportti](https://htmlpreview.github.io/?https://github.com/7rxyk/netris/blob/master/Dokumentaatio/pit-raportti/201701042347/index.html)
-- [Checkstyle raportti]() En tiedä missä tämä raportti menee kun se ei ilmestynyt mihinkään kansioon
+- [Checkstyle raportti](https://htmlpreview.github.io/?https://github.com/7rxyk/netris/blob/master/Dokumentaatio/checkstyle-raportti/checkstyle.html) 
