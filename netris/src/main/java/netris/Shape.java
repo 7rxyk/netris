@@ -1,145 +1,129 @@
 package netris;
 
 /**
- * Shape luokka: tarkoitus hoitaa NetrisPala-luokan palojen koordinaattien yms.
- * tarkempi alustus ja luoda Shape netrispala olio
+ * Shapeclass: meant to put NetrisPieces into the shape object and handle the coordinates
  */
 public final class Shape {
-
-    public NetrisPalat muoto;
-    public int koordinaatti[][];
+    public NetrisPieces shape;
+    public int coordinates[][];
 
     /**
-     * Metodilla asetetaan parametrillä tuleva muoto Shape olion
-     * koordinaatteihin
-     *
-     * @see kutsuu toista metodia asetaMuoto, jonka parametrinä asetettava muoto
-     * menee.
+     * Shape sets the coordinates into Shape object
+     * @see calls setShape method
      */
     public Shape() {
-        koordinaatti = new int[4][2];
-        asetaMuoto(NetrisPalat.Testi);
+        coordinates = new int[4][2];
+        setShape(NetrisPieces.Test);
     }
 
     /**
-     * Metodilla asetetaan parametrillä tuleva muoto Shape olion
-     * koordinaatteihin
-     *
-     * @param muoto on Shape olioon asetettava NetrisPala muoto.
+     * NetrisPiece shape is set to the coordinates
+     * @param shape is the NetrisPiece shape
      */
-    public void asetaMuoto(NetrisPalat muoto) {
+    public void setShape(NetrisPieces shape) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 2; ++j) {
-                koordinaatti[i][j] = muoto.koordinaatit[i][j];
+                coordinates[i][j] = shape.coordinates[i][j];
             }
         }
-        this.muoto = muoto;
+        this.shape = shape;
     }
 
     private void setX(int index, int x) {
-        koordinaatti[index][0] = x;
+        coordinates[index][0] = x;
     }
 
     private void setY(int index, int y) {
-        koordinaatti[index][1] = y;
+        coordinates[index][1] = y;
     }
 
     /**
-     * x metodi antaa index parametrinä olevan x koordinaatin
+     * x returns x coordinate given as index parameter
      *
-     * @param index on toisen metodin tarjoama indeksi mistä x koordinaatti
-     * halutaan
-     * @return palauttaa shape olion sen hetkisen y koordinaatin
+     * @param index parameter for the wanted x coordinate
+     * @return returns the x coordinate
      */
     public int x(int index) {
-        return koordinaatti[index][0];
+        return coordinates[index][0];
     }
 
     /**
-     * y metodi antaa index parametrinä olevan y koordinaatin
+     * y returns y coordinate given as index parameter
      *
-     * @param index on toisen metodin tarjoama indeksi mistä x koordinaatti
-     * halutaan
-     * @return palauttaa shape olion sen hetkisen y koordinaatin
+     * @param index parameter for the wanted y coordinate
+     * @return returns the y coordinate
      */
     public int y(int index) {
-        return koordinaatti[index][1];
+        return coordinates[index][1];
     }
 
-    public NetrisPalat getMuoto() {
-        return muoto;
+    public NetrisPieces getShape() {
+        return shape;
     }
 
     /**
-     * Asetetaan palaksi random muoto
-     *
-     * @see Random-muoto asetetaan asetaMuoto metodikutsun parametriksi
+     *Random NetrisPiece shape is got
+     * @see Random-shape is set through setShape method
      */
-    public void setRandomMuoto() {
-        asetaMuoto(NetrisPalat.getRandomPala());
+    public void setRandomShape() {
+        setShape(NetrisPieces.getRandomNetrisPieces());
     }
 
     /**
-     * minX käy läpi shape olion koordinaatit ja palauttaa niistä pienimmän
-     *
-     * @return palauttaa shape oliolle pienimmän X koordinaatit
+     * minX checks the X coordinates and return smallest one
+     * @return returns smallest coordinate for X
      */
     public int minX() {
-        int m = koordinaatti[0][0];
+        int m = coordinates[0][0];
         for (int i = 0; i < 4; i++) {
-            m = Math.min(m, koordinaatti[i][0]);
+            m = Math.min(m, coordinates[i][0]);
         }
         return m;
     }
 
     /**
-     * minY käy läpi shape olion koordinaatit ja palauttaa niistä pienimmän
-     *
-     * @return palauttaa shape oliolle pienimmän Y koordinaatit
+     * minY checks the Y coordinates and return smallest one
+     * @return returns smallest coordinate for Y
      */
     public int minY() {
-        int m = koordinaatti[0][1];
+        int m = coordinates[0][1];
         for (int i = 0; i < 4; i++) {
-            m = Math.min(m, koordinaatti[i][1]);
+            m = Math.min(m, coordinates[i][1]);
         }
         return m;
     }
 
     /**
-     * Vasemmalle metodi reagoi toisen luokan käskyyn pyörittää Shape palaa
-     * vasemmalle ja antaa palikalle uudet koordinaatit.
-     *
-     * @return palauttaa shape oliolle uudet koordinaatit
+     * toLeft method spins the shape to the left and return new coordinates for piece
+     * @return return new coordinates
      */
-    public Shape vasemmalle() {
-        if (muoto == NetrisPalat.Nelio) {
+    public Shape toLeft() {
+        if (shape == NetrisPieces.O) {
             return this;
         }
-        Shape tulos = new Shape();
-        tulos.muoto = muoto;
+        Shape result = new Shape();
+        result.shape = shape;
         for (int i = 0; i < 4; ++i) {
-            tulos.setX(i, y(i));
-            tulos.setY(i, -x(i));
+            result.setX(i, y(i));
+            result.setY(i, -x(i));
         }
-        return tulos;
+        return result;
     }
 
     /**
-     * Oikealle metodi reagoi toisen luokan käskyyn pyörittää Shape palaa
-     * oikealle ja antaa palikalle uudet koordinaatit.
-     *
-     * @return palauttaa shape oliolle uudet koordinaatit
+     * toRight method spins the shape to the right and return new coordinates for piece
+     * @return return new coordinates
      */
-    public Shape oikealle() {
-        if (muoto == NetrisPalat.Nelio) {
+    public Shape toRight() {
+        if (shape == NetrisPieces.O) {
             return this;
         }
-        Shape tulos = new Shape();
-        tulos.muoto = muoto;
+        Shape result = new Shape();
+        result.shape = shape;
         for (int i = 0; i < 4; ++i) {
-            tulos.setX(i, -y(i));
-            tulos.setY(i, x(i));
+            result.setX(i, -y(i));
+            result.setY(i, x(i));
         }
-        return tulos;
+        return result;
     }
 }

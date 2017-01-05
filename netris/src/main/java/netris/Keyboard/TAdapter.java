@@ -3,57 +3,56 @@ package netris.Keyboard;
 import netris.netrisGUI.Netris;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import netris.NetrisPalat;
-import netris.Pelilauta;
+import netris.NetrisPieces;
+import netris.Board;
 
 public class TAdapter extends KeyAdapter {
 
-    public Pelilauta peli;
+    public Board game;
 
     /**
      * keyPressed metodi toimii välikätenä käyttäjän näppäimistö syötteen ja
      * niistä tapahtuvien toimintojen välillä. Todennäköisesti muutoksia
      * tarvitaan, kun ei välttämättä toimi tällä hetkellä.
      *
-     * @param painallus on käyttäjän antama syöte näppäimistöllään, jonka mukaan
-     * pelissä toimitaan
+     * @param pressed on käyttäjän antama syöte näppäimistöllään, jonka mukaan
+     * gamessä toimitaan
      */
     @Override
-    public void keyPressed(KeyEvent painallus) {
-        peli = new Pelilauta(new Netris());
-        if (!peli.paalla || peli.nykyinenPalikka.getMuoto() == NetrisPalat.Testi) {
+    public void keyPressed(KeyEvent pressed) {
+        game = new Board(new Netris());
+        if (!game.gameOn || game.currentPiece.getShape() == NetrisPieces.Test) {
             return;
         }
-        int keycode = painallus.getKeyCode();
+        int keycode = pressed.getKeyCode();
         if (keycode == 'p' || keycode == 'P') {
-            peli.pause();
+            game.pause();
             return;
         }
-        if (peli.tauolla) {
+        if (game.paused) {
             return;
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                peli.liikuta(peli.nykyinenPalikka, peli.nykyinenX - 1, peli.nykyinenY);
+                game.liikuta(game.currentPiece, game.currentX - 1, game.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("right");
-                peli.liikuta(peli.nykyinenPalikka, peli.nykyinenX + 1, peli.nykyinenY);
+                game.liikuta(game.currentPiece, game.currentX + 1, game.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                peli.liikuta(peli.nykyinenPalikka.oikealle(), peli.nykyinenX, peli.nykyinenY);
+                game.liikuta(game.currentPiece.toRight(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_UP:
-                peli.liikuta(peli.nykyinenPalikka.vasemmalle(), peli.nykyinenX, peli.nykyinenY);
+                game.liikuta(game.currentPiece.toLeft(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_SPACE:
-                peli.pudota();
+                game.drop();
                 break;
             case 'd':
-                peli.taysiRivi();
+                game.fullRow();
                 break;
             case 'D':
-                peli.taysiRivi();
+                game.fullRow();
                 break;
         }
     }

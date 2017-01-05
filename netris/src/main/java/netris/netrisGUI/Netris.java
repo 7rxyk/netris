@@ -3,35 +3,32 @@ package netris.netrisGUI;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import netris.Pelilauta;
+import netris.Board;
 
 public class Netris extends JFrame {
 
     private JLabel statusbar;
-    public Pelilauta pelilauta;
+    public Board game;
 
     /**
-     * Kutsuu uusipeli metodia
+     * Netris constructor calls newGame method
      *
-     * @see uusiPeli olio
+     * @see newGame object
      */
     public Netris() {
-        uusiPeli();
+        newGame();
     }
 
     /**
-     * uusiPeli metodi luo alustukset uutta peliä varten ja kutsuu pelilauta
-     * oliota.
-     *
-     * @see Pelilauta konstruktori
+     * newGame method sets game ready and call Board object
+     * @see Board constructor
      */
-    private void uusiPeli() {
+    private void newGame() {
         statusbar = new JLabel(" 0");
         add(statusbar, BorderLayout.SOUTH);
-        pelilauta = new Pelilauta(this);
-        add(pelilauta);
-        pelilauta.start();
+        game = new Board(this);
+        add(game);
+        game.start();
 
         setSize(200, 400);
         setTitle("Netris");
@@ -41,17 +38,5 @@ public class Netris extends JFrame {
 
     public JLabel getStatusBar() {
         return statusbar;
-    }
-
-    /**
-     * main luo uuden Netris olion
-     *
-     * @param args parametrinä
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Netris peli = new Netris();
-            peli.setVisible(true);
-        });
     }
 }

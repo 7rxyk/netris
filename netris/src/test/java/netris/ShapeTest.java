@@ -18,91 +18,91 @@ public class ShapeTest {
     @Test
     public void testThatMinXReturnsCorrectForSuora() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.I);
+        shapeToTest.setShape(NetrisPieces.I);
         assertEquals(shapeToTest.minX(), 0);
     }
 
     @Test
-    public void testThatMinXReturnsCorrectForNelio() {
+    public void testThatMinXReturnsCorrectForO() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.Nelio);
+        shapeToTest.setShape(NetrisPieces.O);
         assertEquals(shapeToTest.minX(), 0);
     }
 
     @Test
     public void testThatMinXReturnsCorrectForL() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.L);
+        shapeToTest.setShape(NetrisPieces.L);
         assertEquals(shapeToTest.minX(), -1);
     }
 
     @Test
     public void testThatMinXReturnsCorrectForS() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.S);
+        shapeToTest.setShape(NetrisPieces.S);
         assertEquals(shapeToTest.minX(), 0);
     }
 
     @Test
     public void testThatMinXReturnsCorrectForZ() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.Z);
+        shapeToTest.setShape(NetrisPieces.Z);
         assertEquals(shapeToTest.minX(), -1);
     }
 
     @Test
     public void testThatMinXReturnsCorrectForJ() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.J);
+        shapeToTest.setShape(NetrisPieces.J);
         assertEquals(shapeToTest.minX(), 0);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForSuora() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.I);
+        shapeToTest.setShape(NetrisPieces.I);
         assertEquals(shapeToTest.minY(), -1);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForL() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.L);
+        shapeToTest.setShape(NetrisPieces.L);
         assertEquals(shapeToTest.minY(), -1);
     }
 
     @Test
-    public void testThatMinYReturnsCorrectForNelio() {
+    public void testThatMinYReturnsCorrectForO() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.Nelio);
+        shapeToTest.setShape(NetrisPieces.O);
         assertEquals(shapeToTest.minY(), 0);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForJ() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.J);
+        shapeToTest.setShape(NetrisPieces.J);
         assertEquals(shapeToTest.minY(), -1);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForS() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.S);
+        shapeToTest.setShape(NetrisPieces.S);
         assertEquals(shapeToTest.minY(), -1);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForT() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.T);
+        shapeToTest.setShape(NetrisPieces.T);
         assertEquals(shapeToTest.minY(), 0);
     }
 
     @Test
     public void testThatMinYReturnsCorrectForZ() {
         Shape shapeToTest = new Shape();
-        shapeToTest.asetaMuoto(NetrisPalat.Z);
+        shapeToTest.setShape(NetrisPieces.Z);
         assertEquals(shapeToTest.minY(), -1);
     }
     
@@ -125,71 +125,101 @@ public class ShapeTest {
     }
 
     @Test
-    public void testGetMuoto() {
+    public void testGetShape() {
         Shape instance = new Shape();
-        NetrisPalat expResult = NetrisPalat.Testi;
-        NetrisPalat result = instance.getMuoto();
+        NetrisPieces expResult = NetrisPieces.Test;
+        NetrisPieces result = instance.getShape();
         assertEquals(expResult, result);
     }
 
     @Test
-    public void testSetRandomMuoto() {
+    public void testSetRandomShape() {
         Shape instance = new Shape();
-        instance.setRandomMuoto();
+        instance.setRandomShape();
     }
- /*
+ 
     @Test
-    public void testVasemmalleForI() {
+    public void testToLeftForI() {
         Shape i = new Shape();
-        i.asetaMuoto(Shape.Palikka.I);
-        assertEquals(i.vasemmalle(), 0);
+        i.setShape(NetrisPieces.I);
+        assertEquals(i.toLeft(), 0);
     }
-   
+   /*
         @Test
-    public void testVasemmalleForJ() {
+    public void testToLeftForJ() {
         Shape j = new Shape();
-        Shape result = j.vasemmalle();
-        assertEquals(j.vasemmalle(), result);
+        Shape result = j.toLeft();
+        assertEquals(j.toLeft(), result);
     }
         @Test
-    public void testVasemmalleForL() {
+    public void testToLeftForL() {
         Shape l = new Shape();
-        Shape result = l.vasemmalle();
-        assertEquals(l.vasemmalle(), result);
+        Shape result = l.toLeft();
+        assertEquals(l.toLeft(), result);
     }
         @Test
-    public void testVasemmalleForNelio() {
+    public void testToLeftForO() {
         Shape nelio = new Shape();
-        Shape result = nelio.vasemmalle();
-        assertEquals(nelio.vasemmalle(), result);
+        Shape result = nelio.toLeft();
+        assertEquals(nelio.toLeft(), result);
     }
         @Test
-    public void testVasemmalleForT() {
+    public void testToLeftForT() {
         Shape t = new Shape();
-        Shape result = t.vasemmalle();
-        assertEquals(t.vasemmalle(), result);
+        Shape result = t.toLeft();
+        assertEquals(t.toLeft(), result);
     }
         @Test
-    public void testVasemmalleForZ() {
+    public void testToLeftForZ() {
         Shape z = new Shape();
-        Shape result = z.vasemmalle();
-        assertEquals(z.vasemmalle(), result);
+        Shape result = z.toLeft();
+        assertEquals(z.toLeft(), result);
     }
         @Test
-    public void testVasemmalleForS() {
+    public void testToLeftForS() {
         Shape s = new Shape();
-        Shape result = s.vasemmalle();
-        assertEquals(s.vasemmalle(), result);
+        Shape result = s.toLeft();
+        assertEquals(s.toLeft(), result);
     }*/
 
     /**
-     * Test of oikealle method, of class Shape.
-     
+     * Test of setShape method, of class Shape.
+     */
     @Test
-    public void testOikealle() {
+    public void testSetShape() {
+        System.out.println("setShape");
+        NetrisPieces shape = null;
+        Shape instance = new Shape();
+        instance.setShape(shape);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toLeft method, of class Shape.
+     */
+    @Test
+    public void testToLeft() {
+        System.out.println("toLeft");
         Shape instance = new Shape();
         Shape expResult = null;
-        Shape result = instance.oikealle();
+        Shape result = instance.toLeft();
         assertEquals(expResult, result);
-    }*/
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toRight method, of class Shape.
+     */
+    @Test
+    public void testToRight() {
+        System.out.println("toRight");
+        Shape instance = new Shape();
+        Shape expResult = null;
+        Shape result = instance.toRight();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
