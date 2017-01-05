@@ -144,13 +144,13 @@ public class ShapeTest {
         i.setShape(NetrisPieces.I);
         assertEquals(i.toLeft(), 0);
     }
-   /*
+   
         @Test
     public void testToLeftForJ() {
         Shape j = new Shape();
         Shape result = j.toLeft();
         assertEquals(j.toLeft(), result);
-    }
+    }/*
         @Test
     public void testToLeftForL() {
         Shape l = new Shape();
