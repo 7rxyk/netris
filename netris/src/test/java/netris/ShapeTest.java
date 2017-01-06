@@ -1,22 +1,12 @@
 package netris;
 
-import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
 
 public class ShapeTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void testThatMinXReturnsCorrectForSuora() {
+    public void testThatMinXReturnsCorrectForI() {
         Shape shapeToTest = new Shape();
         shapeToTest.setShape(NetrisPieces.I);
         assertEquals(shapeToTest.minX(), 0);
@@ -58,7 +48,7 @@ public class ShapeTest {
     }
 
     @Test
-    public void testThatMinYReturnsCorrectForSuora() {
+    public void testThatMinYReturnsCorrectForI() {
         Shape shapeToTest = new Shape();
         shapeToTest.setShape(NetrisPieces.I);
         assertEquals(shapeToTest.minY(), -1);
@@ -107,119 +97,443 @@ public class ShapeTest {
     }
     
     @Test
-    public void testX() {
+    public void testXForI() {
+        //X is always zero, in all positions
         int index = 0;
         Shape instance = new Shape();
-        int expResult = 0;
+        instance.setShape(NetrisPieces.I);
         int result = instance.x(index);
-        assertEquals(expResult, result);
+        assertEquals(0, result); 
     }
-
+    
     @Test
-    public void testY() {
+    public void testXForZ() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.Z);
         int index = 0;
+        int result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(-1, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(-1, result);
+    }
+    
+    @Test
+    public void testXForS() {
         Shape instance = new Shape();
-        int expResult = 0;
-        int result = instance.y(index);
-        assertEquals(expResult, result);
+        instance.setShape(NetrisPieces.S);
+        int index = 0;
+        int result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(1, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(1, result);
+    }
+    
+        @Test
+    public void testXForT() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.T);
+        int index = 0;
+        int result = instance.x(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(1, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(0, result);
+    }
+    
+        @Test
+    public void testXForO() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.O);
+        int index = 0;
+        int result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(1, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(1, result);
+    }
+    
+        @Test
+    public void testXForJ() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.J);
+        int index = 0;
+        int result = instance.x(index);
+        assertEquals(1, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(0, result);
+    }
+    
+        @Test
+    public void testXForL() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.L);
+        int index = 0;
+        int result = instance.x(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.x(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.x(index);
+        assertEquals(0, result);
     }
 
     @Test
-    public void testGetShape() {
+    public void testYForI() {
         Shape instance = new Shape();
-        NetrisPieces expResult = NetrisPieces.Test;
-        NetrisPieces result = instance.getShape();
-        assertEquals(expResult, result);
+        instance.setShape(NetrisPieces.I);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(1, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(2, result);
+    }
+        @Test
+    public void testYForO() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.O);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(1, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+        @Test
+    public void testYForT() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.T);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+        @Test
+    public void testYForJ() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.J);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+        @Test
+    public void testYForL() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.L);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+        @Test
+    public void testYForS() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.S);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+        @Test
+    public void testYForZ() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.Z);
+        int index = 0;
+        int result = instance.y(index);
+        assertEquals(-1, result);
+        
+        index = 1;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 2;
+        result = instance.y(index);
+        assertEquals(0, result);
+        
+        index = 3;
+        result = instance.y(index);
+        assertEquals(1, result);
+    }
+    
+        @Test
+    public void testGetShapeTest() {
+        Shape instance = new Shape();
+        assertEquals(NetrisPieces.Test, instance.getShape());
+    }
+
+    @Test
+    public void testGetShapeS() {
+        Shape instance = new Shape();
+        instance.setShape(NetrisPieces.S);
+        assertEquals(NetrisPieces.S, instance.getShape());
     }
 
     @Test
     public void testSetRandomShape() {
         Shape instance = new Shape();
         instance.setRandomShape();
+        assertNotNull(instance.getShape());
     }
  
     @Test
     public void testToLeftForI() {
-        Shape i = new Shape();
-        i.setShape(NetrisPieces.I);
-        assertEquals(i.toLeft(), 0);
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.S);
+        s.toLeft();
+        assertEquals(1, s.x(2));
     }
    
         @Test
     public void testToLeftForJ() {
-        Shape j = new Shape();
-        Shape result = j.toLeft();
-        assertEquals(j.toLeft(), result);
-    }/*
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.J);
+        s.toLeft();
+        assertEquals(0, s.x(2));
+    }
         @Test
     public void testToLeftForL() {
-        Shape l = new Shape();
-        Shape result = l.toLeft();
-        assertEquals(l.toLeft(), result);
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.L);
+        s.toLeft();
+        assertEquals(0, s.x(2));
     }
         @Test
     public void testToLeftForO() {
-        Shape nelio = new Shape();
-        Shape result = nelio.toLeft();
-        assertEquals(nelio.toLeft(), result);
-    }
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.O);
+        s.toLeft();
+        assertEquals(0, s.x(2));
+    } 
+   
         @Test
     public void testToLeftForT() {
-        Shape t = new Shape();
-        Shape result = t.toLeft();
-        assertEquals(t.toLeft(), result);
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.T);
+        s.toLeft();
+        assertEquals(1, s.x(2));
     }
         @Test
     public void testToLeftForZ() {
-        Shape z = new Shape();
-        Shape result = z.toLeft();
-        assertEquals(z.toLeft(), result);
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.Z);
+        s.toLeft();
+        assertEquals(-1, s.x(2));
     }
         @Test
     public void testToLeftForS() {
         Shape s = new Shape();
-        Shape result = s.toLeft();
-        assertEquals(s.toLeft(), result);
-    }*/
+        s.setShape(NetrisPieces.S);
+        s.toLeft();
+        assertEquals(1, s.x(2));
+    }
 
     /**
      * Test of setShape method, of class Shape.
      */
     @Test
-    public void testSetShape() {
-        System.out.println("setShape");
-        NetrisPieces shape = null;
+    public void testSetShapeI() {
+        NetrisPieces shape = NetrisPieces.I;
         Shape instance = new Shape();
         instance.setShape(shape);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of toLeft method, of class Shape.
-     */
-    @Test
-    public void testToLeft() {
-        System.out.println("toLeft");
+        @Test
+    public void testSetShapeJ() {
+        NetrisPieces shape = NetrisPieces.J;
         Shape instance = new Shape();
-        Shape expResult = null;
-        Shape result = instance.toLeft();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setShape(shape);
+    }
+        @Test
+    public void testSetShapeL() {
+        NetrisPieces shape = NetrisPieces.L;
+        Shape instance = new Shape();
+        instance.setShape(shape);
+    }
+        @Test
+    public void testSetShapeO() {
+        NetrisPieces shape = NetrisPieces.O;
+        Shape instance = new Shape();
+        instance.setShape(shape);
+    }
+        @Test
+    public void testSetShapeT() {
+        NetrisPieces shape = NetrisPieces.T;
+        Shape instance = new Shape();
+        instance.setShape(shape);
+    }
+        @Test
+    public void testSetShapeZ() {
+        NetrisPieces shape = NetrisPieces.Z;
+        Shape instance = new Shape();
+        instance.setShape(shape);
+    }
+        @Test
+    public void testSetShapeS() {
+        NetrisPieces shape = NetrisPieces.S;
+        Shape instance = new Shape();
+        instance.setShape(shape);
     }
 
     /**
      * Test of toRight method, of class Shape.
      */
     @Test
-    public void testToRight() {
-        System.out.println("toRight");
-        Shape instance = new Shape();
-        Shape expResult = null;
-        Shape result = instance.toRight();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testToRightS() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.S);
+        s.toRight();
+        assertEquals(1, s.x(2));
+    }
+    @Test
+    public void testToRightT() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.T);
+        s.toRight();
+        assertEquals(1, s.x(2));
+    }
+    @Test
+    public void testToRightJ() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.J);
+        s.toRight();
+        assertEquals(0, s.x(2));
+    }
+    @Test
+    public void testToRightL() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.L);
+        s.toRight();
+        assertEquals(0, s.x(2));
+    }
+    @Test
+    public void testToRightZ() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.Z);
+        s.toRight();
+        assertEquals(-1, s.x(2));
+    }
+        @Test
+    public void testToRightI() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.I);
+        s.toRight();
+        assertEquals(0, s.x(2));
     }
 }

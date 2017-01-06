@@ -1,5 +1,6 @@
 package netris.Keyboard;
 
+import java.awt.event.ActionEvent;
 import netris.netrisGUI.Netris;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -8,8 +9,17 @@ import netris.Board;
 
 public class TAdapter extends KeyAdapter {
 
-    public Board game;
-
+    private Board game = new Board(new Netris());
+    
+        public void actionPerformed(ActionEvent e) {
+        if (game.pieceDown) {
+            game.pieceDown = false;
+            game.newPiece();
+        } else {
+            game.fullRow();
+        }
+    }
+    
     /**
      * keyPressed metodi toimii välikätenä käyttäjän näppäimistö syötteen ja
      * niistä tapahtuvien toimintojen välillä. Todennäköisesti muutoksia
@@ -20,7 +30,6 @@ public class TAdapter extends KeyAdapter {
      */
     @Override
     public void keyPressed(KeyEvent pressed) {
-        game = new Board(new Netris());
         if (!game.gameOn || game.currentPiece.getShape() == NetrisPieces.Test) {
             return;
         }
@@ -34,16 +43,16 @@ public class TAdapter extends KeyAdapter {
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                game.liikuta(game.currentPiece, game.currentX - 1, game.currentY);
+                game.move(game.currentPiece, game.currentX - 1, game.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                game.liikuta(game.currentPiece, game.currentX + 1, game.currentY);
+                game.move(game.currentPiece, game.currentX + 1, game.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                game.liikuta(game.currentPiece.toRight(), game.currentX, game.currentY);
+                game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_UP:
-                game.liikuta(game.currentPiece.toLeft(), game.currentX, game.currentY);
+                game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_SPACE:
                 game.drop();

@@ -4,7 +4,6 @@ import netris.Keyboard.TAdapter;
 import netris.netrisGUI.Netris;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +19,7 @@ public class Board extends JPanel {
     private final int height = 22;
 
     private final Timer timer;
-    private boolean pieceDown = false;
+    public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
     private int linesRemoved = 0;
@@ -56,14 +55,6 @@ public class Board extends JPanel {
      * @param e on tapahtunut tapahtuma, mutta mikään ei nyt tällä hetkellä
      * käytä kys. parametriä. Selvitellään miksi ja mitä
      */
-    public void actionPerformed(ActionEvent e) {
-        if (pieceDown) {
-            pieceDown = false;
-            newPiece();
-        } else {
-            fullRow();
-        }
-    }
 
     private int squareWidth() {
         return (int) getSize().getWidth() / width;
@@ -78,7 +69,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Metodi aloittaa pelin
+     * Method starts the game
      */
     public void start() {
         if (paused) {
@@ -94,7 +85,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Metodi pistää pelin tauolle
+     * Method puts game to paused mode
      */
     public void pause() {
         if (!gameOn) {
@@ -112,12 +103,12 @@ public class Board extends JPanel {
     }
 
     /**
-     * Metodi pudottaa palikan
+     * Method drops the piece
      */
     public void drop() {
         int newY = currentY;
         while (newY > 0) {
-            if (!liikuta(currentPiece, currentX, newY - 1)) {
+            if (!move(currentPiece, currentX, newY - 1)) {
                 break;
             }
             --newY;
@@ -126,27 +117,27 @@ public class Board extends JPanel {
     }
 
     /**
-     * Metodi tarkistaa onko rivi täysi
+     * Checks if the row is full
      */
     public void fullRow() {
-        if (!liikuta(currentPiece, currentX, currentY - 1)) {
+        if (!move(currentPiece, currentX, currentY - 1)) {
             pieceDropped();
         }
     }
 
     /**
-     * Metodi tyhjentää pelialueen
+     * Clears the board
      */
-    private void emptyBoard() {
+    public void emptyBoard() {
         for (int i = 0; i < height * width; ++i) {
             board[i] = NetrisPieces.Test;
         }
     }
 
     /**
-     * p
+     * 
      */
-    private void pieceDropped() {
+    public void pieceDropped() {
         for (int i = 0; i < 4; ++i) {
             int x = currentX + currentPiece.x(i);
             int y = currentY - currentPiece.y(i);
@@ -159,13 +150,13 @@ public class Board extends JPanel {
     }
 
     /**
-     * muodostaa uuden palikan currentPiece paikalle
+     * makes a new piece to board
      */
-    private void newPiece() {
+    public void newPiece() {
         currentPiece.setRandomShape();
         currentX = width / 2 + 1;
         currentY = height - 1 + currentPiece.minY();
-        if (!liikuta(currentPiece, currentX, currentY)) {
+        if (!move(currentPiece, currentX, currentY)) {
             currentPiece.setShape(NetrisPieces.Test);
             timer.stop();
             gameOn = false;
@@ -174,7 +165,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * liikuta metodilla liikutetaan palikkaa
+     * move metodilla liikutetaan palikkaa
      *
      * @param newPiece tulee parametrina
      * @param newX palalle new x koordinaatti eli mihin palaa liikutetaan
@@ -182,7 +173,7 @@ public class Board extends JPanel {
      * liikuttaa.
      * @return palauttaa true/false riippuen ehtolauseiden toteutumisesta
      */
-    public boolean liikuta(Shape newPiece, int newX, int newY) {
+    public boolean move(Shape newPiece, int newX, int newY) {
         for (int i = 0; i < 4; ++i) {
             int x = newX + newPiece.x(i);
             int y = newY - newPiece.y(i);
@@ -201,9 +192,9 @@ public class Board extends JPanel {
     }
 
     /**
-     * Metodi poistaa täyden rivin peliruudulta
+     * Removes the full row
      */
-    private void removeFullRow() {
+    public void removeFullRow() {
         int numberOfFullRows = 0;
         for (int i = height - 1; i >= 0; --i) {
             boolean fullRow = true;

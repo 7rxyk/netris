@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 public class NetrisPiecesTest {
 
-
     /**
      * Test of valueOf method, of class NetrisPieces.
      */
