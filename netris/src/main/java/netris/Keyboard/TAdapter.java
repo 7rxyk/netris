@@ -3,23 +3,25 @@ package netris.Keyboard;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import netris.NetrisPieces;
 import netris.Board;
+import netris.NetrisPieces;
+import netris.Game;
 
 public class TAdapter extends KeyAdapter {
 
-    private final Board game;
+    private final Game game;
+    private Board board;
 
-    public TAdapter(Board game) {
+    public TAdapter(Game game) {
         this.game = game;
     }
 
     public void actionPerformed(ActionEvent e) {
         if (game.pieceDown) {
             game.pieceDown = false;
-            game.game.newPiece();
+            game.newPiece();
         } else {
-            game.fullRow();
+            board.fullRow();
         }
     }
 
@@ -35,7 +37,7 @@ public class TAdapter extends KeyAdapter {
         }
         int keycode = pressed.getKeyCode();
         if (keycode == 'p' || keycode == 'P') {
-            game.game.pause();
+            game.pause();
             return;
         }
         if (game.paused) {
@@ -43,25 +45,25 @@ public class TAdapter extends KeyAdapter {
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                game.game.move(game.currentPiece, game.currentX - 1, game.currentY);
+                game.move(game.currentPiece, game.currentX - 1, game.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                game.game.move(game.currentPiece, game.currentX + 1, game.currentY);
+                game.move(game.currentPiece, game.currentX + 1, game.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                game.game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
+                game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_UP:
-                game.game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
+                game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_SPACE:
-                game.game.drop();
+                game.drop();
                 break;
             case 'd':
-                game.fullRow();
+                board.fullRow();
                 break;
             case 'D':
-                game.fullRow();
+                board.fullRow();
                 break;
         }
     }
