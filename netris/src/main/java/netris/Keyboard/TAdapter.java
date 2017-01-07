@@ -17,19 +17,16 @@ public class TAdapter extends KeyAdapter {
     public void actionPerformed(ActionEvent e) {
         if (game.pieceDown) {
             game.pieceDown = false;
-            game.newPiece();
+            game.game.newPiece();
         } else {
             game.fullRow();
         }
     }
 
     /**
-     * keyPressed metodi toimii välikätenä käyttäjän näppäimistö syötteen ja
-     * niistä tapahtuvien toimintojen välillä. Todennäköisesti muutoksia
-     * tarvitaan, kun ei välttämättä toimi tällä hetkellä.
+     * keyPressed method sends forward players keyboard input.
      *
-     * @param pressed on käyttäjän antama syöte näppäimistöllään, jonka mukaan
-     * gamessä toimitaan
+     * @param pressed is the users input on keyboard
      */
     @Override
     public void keyPressed(KeyEvent pressed) {
@@ -38,7 +35,7 @@ public class TAdapter extends KeyAdapter {
         }
         int keycode = pressed.getKeyCode();
         if (keycode == 'p' || keycode == 'P') {
-            game.pause();
+            game.game.pause();
             return;
         }
         if (game.paused) {
@@ -46,19 +43,19 @@ public class TAdapter extends KeyAdapter {
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                game.move(game.currentPiece, game.currentX - 1, game.currentY);
+                game.game.move(game.currentPiece, game.currentX - 1, game.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                game.move(game.currentPiece, game.currentX + 1, game.currentY);
+                game.game.move(game.currentPiece, game.currentX + 1, game.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
+                game.game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_UP:
-                game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
+                game.game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_SPACE:
-                game.drop();
+                game.game.drop();
                 break;
             case 'd':
                 game.fullRow();
