@@ -1,7 +1,6 @@
 package netris.Keyboard;
 
 import java.awt.event.ActionEvent;
-import netris.netrisGUI.Netris;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import netris.NetrisPieces;
@@ -9,9 +8,13 @@ import netris.Board;
 
 public class TAdapter extends KeyAdapter {
 
-    private Board game = new Board(new Netris());
-    
-        public void actionPerformed(ActionEvent e) {
+    private final Board game;
+
+    public TAdapter(Board game) {
+        this.game = game;
+    }
+
+    public void actionPerformed(ActionEvent e) {
         if (game.pieceDown) {
             game.pieceDown = false;
             game.newPiece();
@@ -19,7 +22,7 @@ public class TAdapter extends KeyAdapter {
             game.fullRow();
         }
     }
-    
+
     /**
      * keyPressed metodi toimii välikätenä käyttäjän näppäimistö syötteen ja
      * niistä tapahtuvien toimintojen välillä. Todennäköisesti muutoksia

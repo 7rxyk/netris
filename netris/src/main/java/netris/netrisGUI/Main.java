@@ -8,8 +8,7 @@ public class Main {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Netris peli = new Netris();
-            peli.setVisible(true);
+            new Netris();
         });
     }
 }

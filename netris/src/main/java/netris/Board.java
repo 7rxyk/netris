@@ -4,7 +4,6 @@ import netris.Keyboard.TAdapter;
 import netris.netrisGUI.Netris;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -38,13 +37,12 @@ public class Board extends JPanel {
     public Board(Netris netris) {
         setFocusable(true);
         currentPiece = new Shape();
-        timer = new Timer(400, (ActionListener) this);
+        timer = new Timer(400, null);
         timer.start();
 
         statusbar = netris.getStatusBar();
         board = new NetrisPieces[width * height];
-        this.keyListener = new TAdapter();
-        addKeyListener(this.keyListener);
+        this.addKeyListener(new TAdapter(this));
         emptyBoard();
     }
 
@@ -247,7 +245,7 @@ public class Board extends JPanel {
      * @param y palikan y koordinaatti
      */
     void drawSquare(Graphics g, int x, int y) {
-        Color color = Color.PINK;
+        Color color = Color.LIGHT_GRAY;
         int xMin = x * squareWidth();
         int yMin = y * squareHeight();
         int xMax = xMin + squareWidth() - 1;

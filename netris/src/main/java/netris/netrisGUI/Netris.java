@@ -5,38 +5,35 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import netris.Board;
 
-public class Netris extends JFrame {
+public final class Netris extends JFrame {
 
-    private JLabel statusbar;
-    public Board game;
+    private final JLabel statusbar;
+    private final Board game;
 
     /**
-     * Netris constructor calls newGame method
+     * Netris constructor
      *
-     * @see newGame object
+     * @see netris.Board
      */
     public Netris() {
-        newGame();
-    }
+        this.statusbar = new JLabel(" 0");
+        this.add(statusbar, BorderLayout.SOUTH);
+        this.game = new Board(this);
+        this.add(game);
+        this.game.start();
 
-    /**
-     * newGame method sets game ready and call Board object
-     * @see Board constructor
-     */
-    private void newGame() {
-        statusbar = new JLabel(" 0");
-        add(statusbar, BorderLayout.SOUTH);
-        game = new Board(this);
-        add(game);
-        game.start();
-
-        setSize(200, 400);
-        setTitle("Netris");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        this.setSize(200, 400);
+        this.setTitle("Netris");
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     public JLabel getStatusBar() {
         return statusbar;
+    }
+    
+    public Board getGame() {
+        return game;
     }
 }

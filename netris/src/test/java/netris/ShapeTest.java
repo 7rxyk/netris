@@ -419,8 +419,7 @@ public class ShapeTest {
     public void testToLeftForO() {
         Shape s = new Shape();
         s.setShape(NetrisPieces.O);
-        s.toLeft();
-        assertEquals(0, s.x(2));
+        assertNotNull(s.toLeft());
     } 
    
         @Test
@@ -536,4 +535,10 @@ public class ShapeTest {
         s.toRight();
         assertEquals(0, s.x(2));
     }
+        @Test
+    public void testToRightForO() {
+        Shape s = new Shape();
+        s.setShape(NetrisPieces.O);
+        assertNotNull(s.toRight());
+    } 
 }
