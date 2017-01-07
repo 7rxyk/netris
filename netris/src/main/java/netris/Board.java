@@ -2,9 +2,12 @@ package netris;
 
 import netris.Keyboard.TAdapter;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import netris.netrisGUI.Netris;
 
 /**
 * Board class makes the game frame
@@ -15,7 +18,7 @@ public class Board extends JPanel {
     private static final int HEIGHT = 22;
 
     public Game game;
-    
+    Netris netris;
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
@@ -26,6 +29,11 @@ public class Board extends JPanel {
     public NetrisPieces[] board;
     public TAdapter keyListener;
     public final JLabel statusbar;
+    private BufferStrategy strategy;
+    
+    public Board(){
+        statusbar = netris.getStatusBar();
+    }
 
 
     private int squareWidth() {
@@ -98,13 +106,18 @@ public class Board extends JPanel {
         }
     }
 
+    public Graphics2D getGameGraphics() {
+        return (Graphics2D) strategy.getDrawGraphics();
+    }
+    
+    
     /**
-     * maalaa uutta palikkaa
-     *
-     * @param g on swingin grafiikkatyökalu
+     * paints the new piece and calls another method
+     * @see drawSquare
+     * @param g swing graphics
      */
-    @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics2D g) {
+        g = getGameGraphics();
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH * squareWidth(), WIDTH * squareHeight());
         for (int y = 0; y < HEIGHT; y++) {
@@ -115,14 +128,13 @@ public class Board extends JPanel {
     }
 
     /**
-     * maalaa uutta palikkaa x ja y koordinaattien mukaisesti. Metodi vaatii
-     * työstämistä!
+     * Draws new NetrisPiece by the parameter coordinates.
      *
-     * @param g on swingin grafiikkatyökalu
-     * @param x palikan x koordinaatti
-     * @param y palikan y koordinaatti
+     * @param g swing graphics
+     * @param x pieces x coordinate
+     * @param y pieces y coordinate
      */
-    void drawSquare(Graphics g, int x, int y) {
+    void drawSquare(Graphics2D g, int x, int y) {
         Color color = Color.LIGHT_GRAY;
         int xMin = x * squareWidth();
         int yMin = y * squareHeight();
@@ -145,5 +157,33 @@ public class Board extends JPanel {
 
     int getFullLines() {
         return linesRemoved;
+    }
+    
+    public String getLevel() {
+        return String.format("Your level: %1s", game.getLevel());
+    }
+
+    public String getLines() {
+        return String.format("Full lines: %1s", game.getLines());
+    }
+
+    public String getScore() {
+        return String.format("Score    %1s", game.getTotalScore());
+    }
+    
+    public void drawStatus(Graphics2D g) {
+        g.setFont(new Font("Dialog", Font.PLAIN, 16));
+        g.setColor(Color.WHITE);
+        g.drawString(getLevel(), 10, 20);
+        g.drawString(getLines(), 10, 40);
+        g.drawString(getScore(), 20, 80);
+    }
+    
+    public void drawHelpBox(Graphics2D g) {
+        g.setFont(new Font("Dialog", Font.BOLD, 16));
+        g.setColor(Color.WHITE);
+        g.drawString("H E L P", 50, 140);
+        g.drawString("p: Pause Game", 10, 160);
+        g.drawString("s: New Game", 10, 180);
     }
 }

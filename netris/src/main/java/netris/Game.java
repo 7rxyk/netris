@@ -11,7 +11,8 @@ public class Game extends JPanel {
     private static final int WIDTH = 10;
     private static final int HEIGHT = 22;
 
-    private final Board board;
+    private final Board game;
+    public NetrisPieces[] board;
     private Shape nextPiece;
     public boolean pieceDown = false;
     public boolean gameOn = false;
@@ -27,14 +28,14 @@ public class Game extends JPanel {
     private int totalScore;
 
     public Game(Netris netris) {
-        board = new Board();
+        game = new Board();
         setFocusable(true);
         currentPiece = new Shape();
         timer = new Timer(400, null);
         timer.start();
 
         statusbar = netris.getStatusBar();
-        game = new NetrisPieces[WIDTH * HEIGHT];
+        board = new NetrisPieces[WIDTH * HEIGHT];
         this.addKeyListener(new TAdapter(this));
     }
 
@@ -51,13 +52,13 @@ public class Game extends JPanel {
     }
 
     public int getLines() {
-        return board.linesRemoved;
+        return game.linesRemoved;
     }
 
     public int getLevel() {
-        if ((board.getFullLines() >= 1) && (board.getFullLines() <= 90)) {
-            return 1 + ((board.getFullLines() - 1) / 10);
-        } else if (board.getFullLines() >= 91) {
+        if ((game.getFullLines() >= 1) && (game.getFullLines() <= 90)) {
+            return 1 + ((game.getFullLines() - 1) / 10);
+        } else if (game.getFullLines() >= 91) {
             return 10;
         } else {
             return 1;
@@ -74,7 +75,7 @@ public class Game extends JPanel {
         gameOn = true;
         pieceDown = false;
         linesRemoved = 0;
-        board.emptyBoard();
+        game.emptyBoard();
 
         newPiece();
         timer.start();
@@ -90,10 +91,10 @@ public class Game extends JPanel {
         paused = !paused;
         if (paused) {
             timer.stop();
-            board.statusbar.setText("paused");
+            game.statusbar.setText("paused");
         } else {
             timer.start();
-            board.statusbar.setText(String.valueOf(linesRemoved));
+            game.statusbar.setText(String.valueOf(linesRemoved));
         }
     }
 
@@ -108,7 +109,7 @@ public class Game extends JPanel {
             }
             --newY;
         }
-        board.pieceDropped();
+        game.pieceDropped();
     }
     
     /**
@@ -122,16 +123,16 @@ public class Game extends JPanel {
             currentPiece.setShape(NetrisPieces.Test);
             timer.stop();
             gameOn = false;
-            board.statusbar.setText("game over");
+            game.statusbar.setText("game over");
         }
     }
     /**
-     * move metodilla liikutetaan palikkaa
+     * Method moves the piece left or right
      *
-     * @param newPiece tulee parametrina
-     * @param newX palalle new x koordinaatti eli mihin palaa liikutetaan
-     * @param newY palalle new y koordinaatti eli mihin palaa halutaan liikuttaa.
-     * @return palauttaa true/false riippuen ehtolauseiden toteutumisesta
+     * @param newPiece given as a parameter
+     * @param newX new X coordinate
+     * @param newY new Y coordinate
+     * @return 's true/false
      */
     public boolean move(Shape newPiece, int newX, int newY) {
         for (int i = 0; i < 4; ++i) {
@@ -140,7 +141,7 @@ public class Game extends JPanel {
             if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT) {
                 return false;
             }
-            if (board.shapeAt(x, y) != NetrisPieces.Test) {
+            if (game.shapeAt(x, y) != NetrisPieces.Test) {
                 return false;
             }
         }
