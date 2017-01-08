@@ -10,6 +10,14 @@ Myös joku lopeta peli nappula voisi olla hyvä, yleensä kyllästyy ennen kuin 
 
 
 ![Alt text](/Dokumentaatio/luokkakaavio.png "Luokkakaavio Netriksestä")
+
+
 ![Alt text](/Dokumentaatio/Netrisplaying.png "Netrispeluu yleisesti")
-![Alt text](/Dokumentaatio/PieceRotation.png "Palan pyöritys")
+
+
+![Alt text](/Dokumentaatio/pieceRotation.png "Palan pyöritys")
+
+
 ![Alt text](/Dokumentaatio/Pausegame.png "Pelin pausettaminen")
+
+
