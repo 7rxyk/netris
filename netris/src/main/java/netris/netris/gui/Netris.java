@@ -1,4 +1,4 @@
-package netris.netrisGUI;
+package netris.netris.gui;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -11,7 +11,7 @@ public class Netris extends JFrame {
     private final Board game;
 
     /**
-     * Netris constructor
+     * Netris constructor.
      *
      * @see netris.Board
      */

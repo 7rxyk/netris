@@ -1,4 +1,4 @@
-package netris.netrisGUI;
+package netris.netris.gui;
 
 import javax.swing.JLabel;
 import static org.junit.Assert.assertEquals;

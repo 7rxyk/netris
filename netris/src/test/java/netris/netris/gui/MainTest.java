@@ -1,6 +1,7 @@
 
-package netris.netrisGUI;
+package netris.netris.gui;
 
+import netris.netris.gui.Main;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

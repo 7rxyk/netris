@@ -1,11 +1,11 @@
-package netris.netrisGUI;
+package netris.netris.gui;
 
 import javax.swing.SwingUtilities;
 
 public class Main {
 
     /**
-     * main creates new Netris object
+     * main creates new Netris object.
      *
      * @param args parameter
      */

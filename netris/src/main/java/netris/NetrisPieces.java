@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * Enum used to collect pieceshape data: piece name, coordinates int[][] and color for each pieceshape
+ * Enum used to collect pieceshape data: piece name, coordinates int[][] and
+ * color for each pieceshape.
  */
 public enum NetrisPieces {
 
@@ -19,7 +20,7 @@ public enum NetrisPieces {
 
     public int[][] coordinates;
     public Color color;
-    private static final Random random = new Random();
+    private static final Random RANDOM_PIECE = new Random();
 
     NetrisPieces(int[][] coordinates, Color color) {
         this.coordinates = coordinates;
@@ -27,13 +28,19 @@ public enum NetrisPieces {
     }
 
     public static NetrisPieces getRandomNetrisPieces() {
-        return NetrisPieces.values()[random.nextInt(NetrisPieces.values().length)];
+        return NetrisPieces.values()[RANDOM_PIECE.nextInt(NetrisPieces.values().length)];
     }
 
     public int[][] getCoordinates() {
         return this.coordinates;
     }
 
+    /**
+     * Method gets the color for given NetrisPiece.
+     *
+     * @param shape is the wanted NetrisPiece.
+     * @return returns the color.
+     */
     public Color getColorToNetrisPieces(NetrisPieces shape) {
         return shape.color;
 

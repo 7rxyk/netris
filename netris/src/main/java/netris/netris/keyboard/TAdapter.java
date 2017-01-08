@@ -1,4 +1,4 @@
-package netris.Keyboard;
+package netris.netris.keyboard;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -10,10 +10,20 @@ public class TAdapter extends KeyAdapter {
 
     private Board game;
 
+    /**
+     * TAdapter constructor.
+     *
+     * @param game from Board class is called.
+     */
     public TAdapter(Board game) {
         this.game = game;
     }
 
+    /**
+     * Checks that performing the action goes trough.
+     *
+     * @param e is the actionevent given as a parameter.
+     */
     public void actionPerformed(ActionEvent e) {
         if (game.pieceDown) {
             game.pieceDown = false;

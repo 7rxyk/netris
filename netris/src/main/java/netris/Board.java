@@ -1,14 +1,13 @@
 package netris;
 
-import netris.Keyboard.TAdapter;
-import netris.netrisGUI.Netris;
+import netris.netris.keyboard.TAdapter;
+import netris.netris.gui.Netris;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 
 public class Board extends JPanel {
 
@@ -28,9 +27,9 @@ public class Board extends JPanel {
     public TAdapter keyListener;
 
     /**
-     * Board metodi alustaa uuden pelin
+     * Board method makes the new game.
      *
-     * @param netris olio annetaan parametrinä metodille.
+     * @param netris given as parameter from Netris class.
      */
     public Board(Netris netris) {
         setFocusable(true);
@@ -57,7 +56,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Method starts the game
+     * Method starts the game.
      */
     public void start() {
         if (paused) {
@@ -73,7 +72,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Method puts game to paused mode
+     * Method puts game to paused mode.
      */
     public void pause() {
         if (!gameOn) {
@@ -91,7 +90,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Method drops the piece
+     * Method drops the piece.
      */
     public void drop() {
         int newY = currentY;
@@ -105,7 +104,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Checks if the row is full
+     * Checks if the row is full.
      */
     public void fullRow() {
         if (!move(currentPiece, currentX, currentY - 1)) {
@@ -114,7 +113,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Clears the board
+     * Clears the board.
      */
     public void emptyBoard() {
         for (int i = 0; i < height * width; ++i) {
@@ -123,7 +122,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * 
+     * Checks if the piece is down.
      */
     public void pieceDropped() {
         for (int i = 0; i < 4; ++i) {
@@ -138,7 +137,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * makes a new piece to board
+     * makes a new piece to board.
      */
     public void newPiece() {
         currentPiece.setRandomShape();
@@ -152,6 +151,15 @@ public class Board extends JPanel {
         }
     }
 
+    /**
+     * Move method is handling the piece moving in board side to side.
+     *
+     * @param newPiece is the piece which is moved.
+     * @param newX new x coordinates.
+     * @param newY new y coordinates.
+     * @return true or false depending on if the piece moving can be done. Piece
+     * cant't go outside gamearea.
+     */
     public boolean move(Shape newPiece, int newX, int newY) {
         for (int i = 0; i < 4; ++i) {
             int x = newX + newPiece.x(i);
@@ -171,7 +179,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Removes the full row
+     * Removes the full row.
      */
     public void removeFullRow() {
         int numberOfFullRows = 0;
@@ -201,6 +209,9 @@ public class Board extends JPanel {
         }
     }
 
+    /**
+     * Graphics and piece drawing done paint and drawSquare methods.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -218,7 +229,7 @@ public class Board extends JPanel {
             for (int i = 0; i < 4; ++i) {
                 int x = currentX + currentPiece.x(i);
                 int y = currentY - currentPiece.y(i);
-                drawSquare(g, 0 + x * squareWidth(), boardTop + (height - y - 1) * squareHeight(),currentPiece.getShape());
+                drawSquare(g, 0 + x * squareWidth(), boardTop + (height - y - 1) * squareHeight(), currentPiece.getShape());
             }
         }
     }

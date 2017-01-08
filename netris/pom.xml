@@ -54,14 +54,14 @@
     <version>1.1.8</version>
     <configuration>
         <targetClasses>
-            <param>netris.*</param>
-            <param>netris.Keyboard.*</param>
-            <param>netris.netrisGUI.*</param>
+             <param>netris.*</param>
+            <param>netris.netris.gui.*</param>
+            <param>netris.netris.keyboard.*</param>
         </targetClasses>
         <targetTests>
-            <param>netris.*</param>
-            <param>netris.netrisGUI.*</param>
-            <param>netris.Keyboard.*</param>
+             <param>netris.*</param>
+            <param>netris.netris.gui.*</param>
+            <param>netris.netris.keyboard.*</param>
         </targetTests>
     </configuration>
     </plugin>

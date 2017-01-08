@@ -1,5 +1,5 @@
 
-package netris.Keyboard;
+package netris.netris.keyboard;
 
 public class TAdapterTest {
     
