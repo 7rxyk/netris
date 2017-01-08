@@ -9,4 +9,7 @@ Pelin alettua palikoita alkaa putoilla ja käyttäjä voi tietyillä pyörittä�
 Myös joku lopeta peli nappula voisi olla hyvä, yleensä kyllästyy ennen kuin häviää ja pause
 
 
-![Alt text](/Dokumentaatio/6c6132dd.png "Luokkakaavio Netriksestä")
+![Alt text](/Dokumentaatio/luokkakaavio.png "Luokkakaavio Netriksestä")
+![Alt text](/Dokumentaatio/Netrisplaying.png "Netrispeluu yleisesti")
+![Alt text](/Dokumentaatio/PieceRotation.png "Palan pyöritys")
+![Alt text](/Dokumentaatio/Pausegame.png "Pelin pausettaminen")
