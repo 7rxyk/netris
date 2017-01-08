@@ -4,12 +4,11 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import netris.Board;
-import netris.Game;
 
-public final class Netris extends JFrame {
+public class Netris extends JFrame {
 
     private final JLabel statusbar;
-    private Game game;
+    private final Board game;
 
     /**
      * Netris constructor
@@ -19,7 +18,7 @@ public final class Netris extends JFrame {
     public Netris() {
         this.statusbar = new JLabel(" 0");
         this.add(statusbar, BorderLayout.SOUTH);
-        this.game = new Game(this);
+        this.game = new Board(this);
         this.add(game);
         this.game.start();
 
@@ -34,7 +33,7 @@ public final class Netris extends JFrame {
         return statusbar;
     }
 
-    public Game getGame() {
+    public Board getGame() {
         return game;
     }
 }

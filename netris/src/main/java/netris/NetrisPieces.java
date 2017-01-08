@@ -38,14 +38,4 @@ public enum NetrisPieces {
         return shape.color;
 
     }
-    /*
-    Later color for the piece might be done by using this random color method
-    public static Color randomColor() {
-        float r = random.nextFloat();
-        float g = random.nextFloat();
-        float b = random.nextFloat();
-        Color randomColor = new Color(r, g, b);
-        return randomColor;
-    }
-     */
 }

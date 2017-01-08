@@ -1,13 +1,6 @@
 
 package netris.Keyboard;
 
-import java.awt.event.KeyEvent;
-import netris.Board;
-import netris.NetrisPieces;
-import netris.netrisGUI.Netris;
-import static org.junit.Assert.*;
-import org.junit.Test;
-
 public class TAdapterTest {
     
     public TAdapterTest() {

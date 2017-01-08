@@ -1,58 +1,114 @@
 package netris;
 
 import netris.Keyboard.TAdapter;
+import netris.netrisGUI.Netris;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import netris.netrisGUI.Netris;
+import javax.swing.Timer;
 
-/**
-* Board class makes the game frame
- */
+
 public class Board extends JPanel {
 
-    private static final int WIDTH = 10;
-    private static final int HEIGHT = 22;
+    private final int width = 10;
+    private final int height = 22;
 
-    public Game game;
-    Netris netris;
+    private final Timer timer;
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
-    public int linesRemoved = 0;
+    private int linesRemoved = 0;
     public int currentX = 0;
     public int currentY = 0;
+    private final JLabel statusbar;
     public Shape currentPiece;
     public NetrisPieces[] board;
     public TAdapter keyListener;
-    public final JLabel statusbar;
-    private BufferStrategy strategy;
-    
-    public Board(){
+
+    /**
+     * Board metodi alustaa uuden pelin
+     *
+     * @param netris olio annetaan parametrinä metodille.
+     */
+    public Board(Netris netris) {
+        setFocusable(true);
+        currentPiece = new Shape();
+        timer = new Timer(400, null);
+        timer.start();
+
         statusbar = netris.getStatusBar();
+        board = new NetrisPieces[width * height];
+        this.addKeyListener(new TAdapter(this));
+        emptyBoard();
     }
 
-
     private int squareWidth() {
-        return (int) getSize().getWidth() / WIDTH;
+        return (int) getSize().getWidth() / width;
     }
 
     private int squareHeight() {
-        return (int) getSize().getHeight() / HEIGHT;
+        return (int) getSize().getHeight() / height;
     }
 
-    public NetrisPieces shapeAt(int x, int y) {
-        return board[(y * WIDTH) + x];
+    private NetrisPieces shapeAt(int x, int y) {
+        return board[(y * width) + x];
     }
-    
+
+    /**
+     * Method starts the game
+     */
+    public void start() {
+        if (paused) {
+            return;
+        }
+        gameOn = true;
+        pieceDown = false;
+        linesRemoved = 0;
+        emptyBoard();
+
+        newPiece();
+        timer.start();
+    }
+
+    /**
+     * Method puts game to paused mode
+     */
+    public void pause() {
+        if (!gameOn) {
+            return;
+        }
+        paused = !paused;
+        if (paused) {
+            timer.stop();
+            statusbar.setText("paused");
+        } else {
+            timer.start();
+            statusbar.setText(String.valueOf(linesRemoved));
+        }
+        repaint();
+    }
+
+    /**
+     * Method drops the piece
+     */
+    public void drop() {
+        int newY = currentY;
+        while (newY > 0) {
+            if (!move(currentPiece, currentX, newY - 1)) {
+                break;
+            }
+            --newY;
+        }
+        pieceDropped();
+    }
+
     /**
      * Checks if the row is full
      */
     public void fullRow() {
-        if (!game.move(currentPiece, currentX, currentY - 1)) {
+        if (!move(currentPiece, currentX, currentY - 1)) {
             pieceDropped();
         }
     }
@@ -61,28 +117,67 @@ public class Board extends JPanel {
      * Clears the board
      */
     public void emptyBoard() {
-        for (int i = 0; i < HEIGHT * WIDTH; ++i) {
+        for (int i = 0; i < height * width; ++i) {
             board[i] = NetrisPieces.Test;
         }
     }
 
+    /**
+     * 
+     */
     public void pieceDropped() {
         for (int i = 0; i < 4; ++i) {
             int x = currentX + currentPiece.x(i);
             int y = currentY - currentPiece.y(i);
-            board[(y * WIDTH) + x] = currentPiece.getShape();
+            board[(y * width) + x] = currentPiece.getShape();
         }
         removeFullRow();
         if (!pieceDown) {
-            game.newPiece();
+            newPiece();
         }
     }
 
+    /**
+     * makes a new piece to board
+     */
+    public void newPiece() {
+        currentPiece.setRandomShape();
+        currentX = width / 2 + 1;
+        currentY = height - 1 + currentPiece.minY();
+        if (!move(currentPiece, currentX, currentY)) {
+            currentPiece.setShape(NetrisPieces.Test);
+            timer.stop();
+            gameOn = false;
+            statusbar.setText("game over");
+        }
+    }
+
+    public boolean move(Shape newPiece, int newX, int newY) {
+        for (int i = 0; i < 4; ++i) {
+            int x = newX + newPiece.x(i);
+            int y = newY - newPiece.y(i);
+            if (x < 0 || x >= width || y < 0 || y >= height) {
+                return false;
+            }
+            if (shapeAt(x, y) != NetrisPieces.Test) {
+                return false;
+            }
+        }
+        currentPiece = newPiece;
+        currentX = newX;
+        currentY = newY;
+        repaint();
+        return true;
+    }
+
+    /**
+     * Removes the full row
+     */
     public void removeFullRow() {
         int numberOfFullRows = 0;
-        for (int i = HEIGHT - 1; i >= 0; --i) {
+        for (int i = height - 1; i >= 0; --i) {
             boolean fullRow = true;
-            for (int j = 0; j < WIDTH; ++j) {
+            for (int j = 0; j < width; ++j) {
                 if (shapeAt(j, i) == NetrisPieces.Test) {
                     fullRow = false;
                     break;
@@ -90,9 +185,9 @@ public class Board extends JPanel {
             }
             if (fullRow) {
                 ++numberOfFullRows;
-                for (int k = i; k < HEIGHT - 1; ++k) {
-                    for (int j = 0; j < WIDTH; ++j) {
-                        board[(k * WIDTH) + j] = shapeAt(j, k + 1);
+                for (int k = i; k < height - 1; ++k) {
+                    for (int j = 0; j < width; ++j) {
+                        board[(k * width) + j] = shapeAt(j, k + 1);
                     }
                 }
             }
@@ -106,84 +201,37 @@ public class Board extends JPanel {
         }
     }
 
-    public Graphics2D getGameGraphics() {
-        return (Graphics2D) strategy.getDrawGraphics();
-    }
-    
-    
-    /**
-     * paints the new piece and calls another method
-     * @see drawSquare
-     * @param g swing graphics
-     */
-    public void paintComponent(Graphics2D g) {
-        g = getGameGraphics();
-        g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH * squareWidth(), WIDTH * squareHeight());
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                drawSquare(g, x, y);
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Dimension size = getSize();
+        int boardTop = (int) size.getHeight() - height * squareHeight();
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                NetrisPieces shape = shapeAt(j, height - i - 1);
+                if (shape != NetrisPieces.Test) {
+                    drawSquare(g, 0 + j * squareWidth(), boardTop + i * squareHeight(), shape);
+                }
+            }
+        }
+        if (currentPiece.getShape() != NetrisPieces.Test) {
+            for (int i = 0; i < 4; ++i) {
+                int x = currentX + currentPiece.x(i);
+                int y = currentY - currentPiece.y(i);
+                drawSquare(g, 0 + x * squareWidth(), boardTop + (height - y - 1) * squareHeight(),currentPiece.getShape());
             }
         }
     }
 
-    /**
-     * Draws new NetrisPiece by the parameter coordinates.
-     *
-     * @param g swing graphics
-     * @param x pieces x coordinate
-     * @param y pieces y coordinate
-     */
-    void drawSquare(Graphics2D g, int x, int y) {
-        Color color = Color.LIGHT_GRAY;
-        int xMin = x * squareWidth();
-        int yMin = y * squareHeight();
-        int xMax = xMin + squareWidth() - 1;
-        int yMax = yMin + squareHeight() - 1;
-        int i;
+    private void drawSquare(Graphics g, int x, int y, NetrisPieces shape) {
+        Color color = shape.getColorToNetrisPieces(shape);
         g.setColor(color);
-        g.fillRect(xMin, yMin, squareWidth(), squareHeight());
+        g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
         g.setColor(color.brighter());
-        for (i = 0; i < squareWidth() / 10; i++) {
-            g.drawLine(xMin + i, yMin + i, xMax - i, yMin + i);
-            g.drawLine(xMin + i, yMin + i, xMin + i, yMax - i);
-        }
+        g.drawLine(x, y + squareHeight() - 1, x, y);
+        g.drawLine(x, y, x + squareWidth() - 1, y);
         g.setColor(color.darker());
-        for (i = 0; i < squareWidth() / 10; i++) {
-            g.drawLine(xMax - i, yMin + i, xMax - i, yMax - i);
-            g.drawLine(xMin + i, yMax - i, xMax - i, yMax - i);
-        }
-    }
-
-    int getFullLines() {
-        return linesRemoved;
-    }
-    
-    public String getLevel() {
-        return String.format("Your level: %1s", game.getLevel());
-    }
-
-    public String getLines() {
-        return String.format("Full lines: %1s", game.getLines());
-    }
-
-    public String getScore() {
-        return String.format("Score    %1s", game.getTotalScore());
-    }
-    
-    public void drawStatus(Graphics2D g) {
-        g.setFont(new Font("Dialog", Font.PLAIN, 16));
-        g.setColor(Color.WHITE);
-        g.drawString(getLevel(), 10, 20);
-        g.drawString(getLines(), 10, 40);
-        g.drawString(getScore(), 20, 80);
-    }
-    
-    public void drawHelpBox(Graphics2D g) {
-        g.setFont(new Font("Dialog", Font.BOLD, 16));
-        g.setColor(Color.WHITE);
-        g.drawString("H E L P", 50, 140);
-        g.drawString("p: Pause Game", 10, 160);
-        g.drawString("s: New Game", 10, 180);
+        g.drawLine(x + 1, y + squareHeight() - 1, x + squareWidth() - 1, y + squareHeight() - 1);
+        g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
     }
 }

@@ -5,14 +5,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import netris.Board;
 import netris.NetrisPieces;
-import netris.Game;
 
 public class TAdapter extends KeyAdapter {
 
-    private final Game game;
-    private Board board;
+    private Board game;
 
-    public TAdapter(Game game) {
+    public TAdapter(Board game) {
         this.game = game;
     }
 
@@ -21,7 +19,7 @@ public class TAdapter extends KeyAdapter {
             game.pieceDown = false;
             game.newPiece();
         } else {
-            board.fullRow();
+            game.fullRow();
         }
     }
 
@@ -60,10 +58,10 @@ public class TAdapter extends KeyAdapter {
                 game.drop();
                 break;
             case 'd':
-                board.fullRow();
+                game.fullRow();
                 break;
             case 'D':
-                board.fullRow();
+                game.fullRow();
                 break;
         }
     }
