@@ -29,7 +29,6 @@ public class Board extends JPanel {
     public Board (Netris netris) {
         game = new Game(this);
         setBoard(netris);
-        
     }
     
     
@@ -41,7 +40,7 @@ public class Board extends JPanel {
 
         statusbar = netris.getStatusBar();
         board = new NetrisPieces[width * height];
-        this.addKeyListener(new TAdapter(this));
+        this.addKeyListener(new TAdapter(this, game));
         emptyBoard();
     }
     
@@ -62,7 +61,12 @@ public class Board extends JPanel {
      * Method starts the game by calling other methods from Game class.
      */
     public void start() {
-        game.startGame();
+        if (game.paused) {
+            return;
+        }
+        game.gameOn = true;
+        game.pieceDown = false;
+        game.linesRemoved = 0;
         emptyBoard();
         game.newPiece();
         timer.start();
@@ -72,7 +76,17 @@ public class Board extends JPanel {
      * Method puts game to paused mode by calling pauseGame method from Game class.
      */
     public void pause() {
-        game.pauseGame();
+        if (!game.gameOn) {
+            return;
+        }
+        game.paused = !game.paused;
+        if (game.paused) {
+            timer.stop();
+            statusbar.setText("paused");
+        } else {
+            timer.start();
+            statusbar.setText(String.valueOf(game.linesRemoved));
+        }
         repaint();
     }
 

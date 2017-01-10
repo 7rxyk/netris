@@ -17,12 +17,11 @@ public class Game {
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
-    private int linesRemoved = 0;
+    public int linesRemoved = 0;
     public int currentX = 0;
     public int currentY = 0;
     private JLabel statusbar;
     public Shape currentPiece;
-    public NetrisPieces[] board;
     public TAdapter keyListener;
     public Board gameBoard;
 
@@ -30,35 +29,11 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
-    public void pauseGame() {
-        if (!gameOn) {
-            return;
-        }
-        paused = !paused;
-        if (paused) {
-            timer.stop();
-            statusbar.setText("paused");
-        } else {
-            timer.start();
-            statusbar.setText(String.valueOf(linesRemoved));
-        }
-    }
-
-    public void startGame() {
-        if (paused) {
-            return;
-        }
-        gameOn = true;
-        pieceDown = false;
-        linesRemoved = 0;
-    }
-
-
     public boolean pieceIsDown() {
         for (int i = 0; i < 4; ++i) {
             int x = currentX + currentPiece.x(i);
             int y = currentY - currentPiece.y(i);
-            board[(y * width) + x] = currentPiece.getShape();
+            gameBoard.board[(y * width) + x] = currentPiece.getShape();
             return true;
         }
         return false;
@@ -120,7 +95,7 @@ public class Game {
                 fullRows++;
                 for (int k = i; k < height - 1; k++) {
                     for (int j = 0; j < width; j++) {
-                        board[(k * width) + j] = gameBoard.shapeAt(j, k + 1);
+                        gameBoard.board[(k * width) + j] = gameBoard.shapeAt(j, k + 1);
                     }
                 }
             }

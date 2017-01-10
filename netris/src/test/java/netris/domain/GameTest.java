@@ -11,6 +11,7 @@ import org.junit.Test;
 public class GameTest {
     
     private Game game;
+    private Board board;
     
     public GameTest() {
     }
@@ -33,8 +34,8 @@ public class GameTest {
         int x = 0;
         int y = 0;
         Game instance = new Game(new Board(new Netris()));
-        NetrisPieces expResult = instance.shapeAt(x, y);
-        NetrisPieces result = instance.shapeAt(x, y);
+        NetrisPieces expResult = board.shapeAt(x, y);
+        NetrisPieces result = instance.gameBoard.shapeAt(x, y);
         assertEquals(expResult, result);
     }
     

@@ -86,7 +86,7 @@ public class BoardTest {
         newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
         int newX = -3;
         int newY = 0;
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.move(newPiece, newX, newY);
         assertEquals(expResult, result);
     }
@@ -98,7 +98,7 @@ public class BoardTest {
         newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
         int newX = 3;
         int newY = 0;
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.move(newPiece, newX, newY);
         assertEquals(expResult, result);
     }

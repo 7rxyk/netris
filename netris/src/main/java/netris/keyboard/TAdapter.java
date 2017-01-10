@@ -16,10 +16,11 @@ public class TAdapter extends KeyAdapter {
      * TAdapter constructor.
      *
      * @param game from Board class is called.
+     * @param gGame from Game class is called.
      */
-    public TAdapter(Board game) {
+    public TAdapter(Board game, Game gGame) {
         this.game = game;
-        this.gGame = new Game(this.game);
+        this.gGame = gGame;
     }
 
     /**
