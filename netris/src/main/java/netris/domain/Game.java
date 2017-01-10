@@ -6,7 +6,7 @@ import netris.gui.Board;
 import netris.keyboard.TAdapter;
 
 /**
- * This class will be taking some methods from Board class.
+ * Contains the game logic, which Board uses to perform tasks.
  */
 public class Game {
 
@@ -96,7 +96,7 @@ public class Game {
             if (x < 0 || x >= width || y < 0 || y >= height) {
                 return false;
             }
-            if (shapeAt(x, y) != NetrisPieces.Test) {
+            if (gameBoard.shapeAt(x, y) != NetrisPieces.Test) {
                 return false;
             }
         }
@@ -111,7 +111,7 @@ public class Game {
         for (int i = height - 1; i >= 0; i--) {
             boolean FullRow = true;
             for (int j = 0; j < width; j++) {
-                if (shapeAt(j, i) == NetrisPieces.Test) {
+                if (gameBoard.shapeAt(j, i) == NetrisPieces.Test) {
                     FullRow = false;
                     break;
                 }
@@ -120,7 +120,7 @@ public class Game {
                 fullRows++;
                 for (int k = i; k < height - 1; k++) {
                     for (int j = 0; j < width; j++) {
-                        board[(k * width) + j] = shapeAt(j, k + 1);
+                        board[(k * width) + j] = gameBoard.shapeAt(j, k + 1);
                     }
                 }
             }
@@ -131,10 +131,6 @@ public class Game {
             pieceDown = true;
             currentPiece.setShape(NetrisPieces.Test);
         }
-    }
-
-    public NetrisPieces shapeAt(int x, int y) {
-        return board[(y * width) + x];
     }
 
     /**

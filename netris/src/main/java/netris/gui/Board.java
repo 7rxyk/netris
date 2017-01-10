@@ -17,14 +17,9 @@ public class Board extends JPanel {
     private final int height = 22;
 
     public Timer timer;
-    private int linesRemoved = 0;
-    public int currentX = 0;
-    public int currentY = 0;
     private JLabel statusbar;
-    public Shape currentPiece;
     public NetrisPieces[] board;
-    public TAdapter keyListener;
-    private Game game;
+    private final Game game;
 
     /**
      * Board method makes the new game.
@@ -40,7 +35,7 @@ public class Board extends JPanel {
     
     private void setBoard(Netris netris) {
         setFocusable(true);
-        currentPiece = new Shape();
+        game.currentPiece = new Shape();
         timer = new Timer(400, null);
         timer.start();
 
@@ -49,6 +44,12 @@ public class Board extends JPanel {
         this.addKeyListener(new TAdapter(this));
         emptyBoard();
     }
+    
+    public NetrisPieces shapeAt(int x, int y) {
+        return board[(y * width) + x];
+    }
+
+    
     /**
      * Clears the board.
      */
@@ -118,17 +119,17 @@ public class Board extends JPanel {
         int boardTop = (int) size.getHeight() - height * squareHeight();
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                NetrisPieces shape = game.shapeAt(j, height - i - 1);
+                NetrisPieces shape = shapeAt(j, height - i - 1);
                 if (shape != NetrisPieces.Test) {
                     drawSquare(g, 0 + j * squareWidth(), boardTop + i * squareHeight(), shape);
                 }
             }
         }
-        if (currentPiece.getShape() != NetrisPieces.Test) {
+        if (game.currentPiece.getShape() != NetrisPieces.Test) {
             for (int i = 0; i < 4; ++i) {
-                int x = currentX + currentPiece.x(i);
-                int y = currentY - currentPiece.y(i);
-                drawSquare(g, 0 + x * squareWidth(), boardTop + (height - y - 1) * squareHeight(), currentPiece.getShape());
+                int x = game.currentX + game.currentPiece.x(i);
+                int y = game.currentY - game.currentPiece.y(i);
+                drawSquare(g, 0 + x * squareWidth(), boardTop + (height - y - 1) * squareHeight(), game.currentPiece.getShape());
             }
         }
     }

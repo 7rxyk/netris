@@ -9,8 +9,8 @@ import netris.domain.NetrisPieces;
 
 public class TAdapter extends KeyAdapter {
 
-    private Board game;
-    private Game gGame;
+    private final Board game;
+    private final Game gGame;
 
     /**
      * TAdapter constructor.
@@ -19,6 +19,7 @@ public class TAdapter extends KeyAdapter {
      */
     public TAdapter(Board game) {
         this.game = game;
+        this.gGame = new Game(this.game);
     }
 
     /**
@@ -42,12 +43,12 @@ public class TAdapter extends KeyAdapter {
      */
     @Override
     public void keyPressed(KeyEvent pressed) {
-        if (!gGame.gameOn || game.currentPiece.getShape() == NetrisPieces.Test) {
+        if (!gGame.gameOn || gGame.currentPiece.getShape() == NetrisPieces.Test) {
             return;
         }
         int keycode = pressed.getKeyCode();
         if (keycode == 'p' || keycode == 'P') {
-            game.pause();
+            this.game.pause();
             return;
         }
         if (gGame.paused) {
@@ -55,16 +56,16 @@ public class TAdapter extends KeyAdapter {
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                game.move(game.currentPiece, game.currentX - 1, game.currentY);
+                this.game.move(gGame.currentPiece, gGame.currentX - 1, gGame.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                game.move(game.currentPiece, game.currentX + 1, game.currentY);
+                this.game.move(gGame.currentPiece, gGame.currentX + 1, gGame.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                game.move(game.currentPiece.toRight(), game.currentX, game.currentY);
+                this.game.move(gGame.currentPiece.toRight(), gGame.currentX, gGame.currentY);
                 break;
             case KeyEvent.VK_UP:
-                game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
+                this.game.move(gGame.currentPiece.toLeft(), gGame.currentX, gGame.currentY);
                 break;
             case KeyEvent.VK_SPACE:
                 gGame.drop();
