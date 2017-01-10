@@ -25,11 +25,10 @@ public class Game {
     public NetrisPieces[] board;
     public TAdapter keyListener;
     public Board gameBoard;
-    
-    public Game (Board gameBoard) {
+
+    public Game(Board gameBoard) {
         this.gameBoard = gameBoard;
     }
-    
 
     public void pauseGame() {
         if (!gameOn) {
@@ -54,18 +53,6 @@ public class Game {
         linesRemoved = 0;
     }
 
-    public void dropPiece() {
-
-    }
-
-    /**
-     * Clears the board.
-     */
-    public void emptyBoard() {
-        for (int i = 0; i < height * width; ++i) {
-            board[i] = NetrisPieces.Test;
-        }
-    }
 
     public boolean pieceIsDown() {
         for (int i = 0; i < 4; ++i) {
@@ -109,19 +96,22 @@ public class Game {
             if (x < 0 || x >= width || y < 0 || y >= height) {
                 return false;
             }
-            if (gameBoard.shapeAt(x, y) != NetrisPieces.Test) {
+            if (shapeAt(x, y) != NetrisPieces.Test) {
                 return false;
             }
         }
+        currentPiece = newPiece;
+        currentX = newX;
+        currentY = newY;
         return true;
     }
-    
-    public void checkFullRows () {
+
+    public void checkFullRows() {
         int fullRows = 0;
         for (int i = height - 1; i >= 0; i--) {
             boolean FullRow = true;
             for (int j = 0; j < width; j++) {
-                if (gameBoard.shapeAt(j, i) == NetrisPieces.Test) {
+                if (shapeAt(j, i) == NetrisPieces.Test) {
                     FullRow = false;
                     break;
                 }
@@ -130,7 +120,7 @@ public class Game {
                 fullRows++;
                 for (int k = i; k < height - 1; k++) {
                     for (int j = 0; j < width; j++) {
-                        board[(k * width) + j] = gameBoard.shapeAt(j, k + 1);
+                        board[(k * width) + j] = shapeAt(j, k + 1);
                     }
                 }
             }
@@ -140,6 +130,45 @@ public class Game {
             statusbar.setText(String.valueOf(linesRemoved));
             pieceDown = true;
             currentPiece.setShape(NetrisPieces.Test);
+        }
+    }
+
+    public NetrisPieces shapeAt(int x, int y) {
+        return board[(y * width) + x];
+    }
+
+    /**
+     * Method drops the piece.
+     */
+    public void drop() {
+        int newY = currentY;
+        while (newY > 0) {
+            if (!gameBoard.move(currentPiece, currentX, newY - 1)) {
+                break;
+            }
+            newY--;
+        }
+        pieceDropped();
+    }
+
+    /**
+     * Checks if the row is full.
+     */
+    public void fullRow() {
+        if (!gameBoard.move(currentPiece, currentX, currentY - 1)) {
+            pieceDropped();
+        }
+    }
+
+    /**
+     * Checks if the piece is down.
+     */
+    public void pieceDropped() {
+        if (pieceIsDown() == true) {
+            gameBoard.removeFullRow();
+            if (!pieceDown) {
+                newPiece();
+            }
         }
     }
 }

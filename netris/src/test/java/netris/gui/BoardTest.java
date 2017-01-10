@@ -7,34 +7,6 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
-    private Board board;
-
-    public BoardTest() {
-    }
-
-    @Test
-    public void testValuesAtBeginning() {
-        assertFalse(board.gameOn);
-        assertFalse(board.paused);
-        assertFalse(board.pieceDown);
-        assertEquals(NetrisPieces.Test, board.currentPiece);
-        assertEquals(0, board.currentX);
-        assertEquals(0, board.currentY);
-    }
-
-    /**
-     * Test of shapeAt method, of class Board.
-     */
-    @Test
-    public void testShapeAt() {
-        int x = 0;
-        int y = 0;
-        Board instance = new Board(new Netris());
-        NetrisPieces expResult = instance.shapeAt(x, y);
-        NetrisPieces result = instance.shapeAt(x, y);
-        assertEquals(expResult, result);
-    }
-
     /**
      * Test of start method, of class Board.
      */
@@ -54,16 +26,6 @@ public class BoardTest {
         instance.start();
         instance.pause();
         assertFalse(instance.timer.isRunning());
-    }
-
-    /**
-     * Test of pieceDropped method, of class Board.
-     */
-    @Test
-    public void testPieceDropped() {
-        Board instance = new Board(new Netris());
-        instance.pieceDropped();
-        assertTrue(board.pieceDown);
     }
 
     /**

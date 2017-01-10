@@ -17,9 +17,6 @@ public class Board extends JPanel {
     private final int height = 22;
 
     public Timer timer;
-    public boolean pieceDown = false;
-    public boolean gameOn = false;
-    public boolean paused = false;
     private int linesRemoved = 0;
     public int currentX = 0;
     public int currentY = 0;
@@ -35,7 +32,9 @@ public class Board extends JPanel {
      * @param netris given as parameter from Netris class.
      */
     public Board (Netris netris) {
+        game = new Game(this);
         setBoard(netris);
+        
     }
     
     
@@ -48,27 +47,22 @@ public class Board extends JPanel {
         statusbar = netris.getStatusBar();
         board = new NetrisPieces[width * height];
         this.addKeyListener(new TAdapter(this));
-        game.emptyBoard();
+        emptyBoard();
     }
-    
-    private int squareWidth() {
-        return (int) getSize().getWidth() / width;
+    /**
+     * Clears the board.
+     */
+    public void emptyBoard() {
+        for (int i = 0; i < height * width; ++i) {
+            board[i] = NetrisPieces.Test;
+        }
     }
-
-    private int squareHeight() {
-        return (int) getSize().getHeight() / height;
-    }
-
-    public NetrisPieces shapeAt(int x, int y) {
-        return board[(y * width) + x];
-    }
-
     /**
      * Method starts the game by calling other methods from Game class.
      */
     public void start() {
         game.startGame();
-        game.emptyBoard();
+        emptyBoard();
         game.newPiece();
         timer.start();
     }
@@ -82,41 +76,22 @@ public class Board extends JPanel {
     }
 
     /**
-     * Method drops the piece.
+     * Removes the full row.
      */
-    public void drop() {
-        int newY = currentY;
-        while (newY > 0) {
-            if (!move(currentPiece, currentX, newY - 1)) {
-                break;
-            }
-            newY--;
-        }
-        pieceDropped();
+    public void removeFullRow() {
+        game.checkFullRows();
+        repaint();
     }
 
-    /**
-     * Checks if the row is full.
-     */
-    public void fullRow() {
-        if (!move(currentPiece, currentX, currentY - 1)) {
-            pieceDropped();
-        }
+    public int squareWidth() {
+        return (int) getSize().getWidth() / width;
     }
 
-    /**
-     * Checks if the piece is down.
-     */
-    public void pieceDropped() {
-        if (game.pieceIsDown()== true) {
-            removeFullRow();
-        if (!pieceDown) {
-            game.newPiece();
-            }
-        }
+    public int squareHeight() {
+        return (int) getSize().getHeight() / height;
     }
-
-    /**
+    
+        /**
      * Move method is handling the piece moving in board side to side.
      *
      * @param newPiece is the piece which is moved.
@@ -127,23 +102,11 @@ public class Board extends JPanel {
      */
     public boolean move(Shape newPiece, int newX, int newY) {
         if (game.movePiece(newPiece, newX, newY)== true){
-            currentPiece = newPiece;
-            currentX = newX;
-            currentY = newY;
             repaint();
             return true;
         }
         return false;
     }
-
-    /**
-     * Removes the full row.
-     */
-    public void removeFullRow() {
-        game.checkFullRows();
-        repaint();
-    }
-
     /**
      * Graphics and piece drawing done paint and drawSquare methods.
      * @param g graphics as swing library
@@ -155,7 +118,7 @@ public class Board extends JPanel {
         int boardTop = (int) size.getHeight() - height * squareHeight();
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                NetrisPieces shape = shapeAt(j, height - i - 1);
+                NetrisPieces shape = game.shapeAt(j, height - i - 1);
                 if (shape != NetrisPieces.Test) {
                     drawSquare(g, 0 + j * squareWidth(), boardTop + i * squareHeight(), shape);
                 }

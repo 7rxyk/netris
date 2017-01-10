@@ -27,11 +27,11 @@ public class TAdapter extends KeyAdapter {
      * @param e is the actionevent given as a parameter.
      */
     public void actionPerformed(ActionEvent e) {
-        if (game.pieceDown) {
-            game.pieceDown = false;
+        if (gGame.pieceDown) {
+            gGame.pieceDown = false;
             gGame.newPiece();
         } else {
-            game.fullRow();
+            gGame.fullRow();
         }
     }
 
@@ -42,7 +42,7 @@ public class TAdapter extends KeyAdapter {
      */
     @Override
     public void keyPressed(KeyEvent pressed) {
-        if (!game.gameOn || game.currentPiece.getShape() == NetrisPieces.Test) {
+        if (!gGame.gameOn || game.currentPiece.getShape() == NetrisPieces.Test) {
             return;
         }
         int keycode = pressed.getKeyCode();
@@ -50,7 +50,7 @@ public class TAdapter extends KeyAdapter {
             game.pause();
             return;
         }
-        if (game.paused) {
+        if (gGame.paused) {
             return;
         }
         switch (keycode) {
@@ -67,13 +67,13 @@ public class TAdapter extends KeyAdapter {
                 game.move(game.currentPiece.toLeft(), game.currentX, game.currentY);
                 break;
             case KeyEvent.VK_SPACE:
-                game.drop();
+                gGame.drop();
                 break;
             case 'd':
-                game.fullRow();
+                gGame.fullRow();
                 break;
             case 'D':
-                game.fullRow();
+                gGame.fullRow();
                 break;
         }
     }

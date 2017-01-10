@@ -1,7 +1,5 @@
 package netris.domain;
 
-import netris.domain.NetrisPieces;
-
 /**
  * Shapeclass: meant to put NetrisPieces into the shape object and handle the
  * coordinates.
