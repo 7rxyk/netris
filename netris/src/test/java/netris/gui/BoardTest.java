@@ -1,122 +1,143 @@
 package netris.gui;
 
-import java.awt.Graphics;
+import netris.domain.NetrisPieces;
 import netris.domain.Shape;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoardTest {
-    
+
+    private Board board;
+
     public BoardTest() {
     }
-    
+
     @Test
-    public void test() {
-        String name = "Hello";
-        assertEquals(name, "Hello");
+    public void testValuesAtBeginning() {
+        assertFalse(board.gameOn);
+        assertFalse(board.paused);
+        assertFalse(board.pieceDown);
+        assertEquals(NetrisPieces.Test, board.currentPiece);
+        assertEquals(0, board.currentX);
+        assertEquals(0, board.currentY);
     }
-/*
+
+    /**
+     * Test of shapeAt method, of class Board.
+     */
+    @Test
+    public void testShapeAt() {
+        int x = 0;
+        int y = 0;
+        Board instance = new Board(new Netris());
+        NetrisPieces expResult = instance.shapeAt(x, y);
+        NetrisPieces result = instance.shapeAt(x, y);
+        assertEquals(expResult, result);
+    }
+
     /**
      * Test of start method, of class Board.
-    
+     */
     @Test
     public void testStart() {
-        System.out.println("start");
-        Board instance = null;
+        Board instance = new Board(new Netris());
         instance.start();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    } */
+        assertTrue(instance.timer.isRunning());
+    }
 
     /**
      * Test of pause method, of class Board.
-     
+     */
     @Test
     public void testPause() {
-        System.out.println("pause");
-        Board instance = null;
+        Board instance = new Board(new Netris());
+        instance.start();
         instance.pause();
-    }*/
-
-    /**
-     * Test of drop method, of class Board.
-     
-    @Test
-    public void testDrop() {
-        System.out.println("drop");
-        Board instance = null;
-        instance.drop();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-
-    /**
-     * Test of fullRow method, of class Board.
-     
-    @Test
-    public void testFullRow() {
-        Board instance = null;
-        instance.fullRow();
-    }*/
-
-    /**
-     * Test of emptyBoard method, of class Board.
-    
-    @Test
-    public void testEmptyBoard() {
-        Board instance = null;
-        instance.emptyBoard();
-
-    } */
+        assertFalse(instance.timer.isRunning());
+    }
 
     /**
      * Test of pieceDropped method, of class Board.
-    
+     */
     @Test
     public void testPieceDropped() {
-        Board instance = null;
+        Board instance = new Board(new Netris());
         instance.pieceDropped();
-    } */
-
-    /**
-     * Test of newPiece method, of class Board.
-     
-    @Test
-    public void testNewPiece() {
-        Board instance = null;
-        instance.newPiece();
-    }*/
+        assertTrue(board.pieceDown);
+    }
 
     /**
      * Test of move method, of class Board.
-    
+     */
     @Test
-    public void testMove() {
-        Shape newPiece = null;
-        int newX = 0;
+    public void testMoveTooMuchToTheLeft() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = -10;
         int newY = 0;
-        Board instance = null;
         boolean expResult = false;
         boolean result = instance.move(newPiece, newX, newY);
         assertEquals(expResult, result);
-    } */
+    }
 
-    /**
-     * Test of removeFullRow method, of class Board.
-     
     @Test
-    public void testRemoveFullRow() {
-        Board instance = null;
-        instance.removeFullRow();
-    }*/
+    public void testMoveTooMuchToTheRight() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 10;
+        int newY = 0;
+        boolean expResult = false;
+        boolean result = instance.move(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
 
-    /**
-     * Test of paint method, of class Board.
-    
     @Test
-    public void testPaint() {
-        Graphics g = null;
-        Board instance = null;
-        instance.paint(g);
-    } */
+    public void testMoveTooMuchToTheUp() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 0;
+        int newY = 23;
+        boolean expResult = false;
+        boolean result = instance.move(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testMoveTooMuchToTheDown() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 0;
+        int newY = -23;
+        boolean expResult = false;
+        boolean result = instance.move(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testToTheLeft() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = -3;
+        int newY = 0;
+        boolean expResult = true;
+        boolean result = instance.move(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testToTheRight() {
+        Board instance = new Board(new Netris());
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 3;
+        int newY = 0;
+        boolean expResult = true;
+        boolean result = instance.move(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
 }

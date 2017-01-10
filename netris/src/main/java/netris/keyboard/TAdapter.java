@@ -3,12 +3,14 @@ package netris.keyboard;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import netris.domain.Game;
 import netris.gui.Board;
 import netris.domain.NetrisPieces;
 
 public class TAdapter extends KeyAdapter {
 
     private Board game;
+    private Game gGame;
 
     /**
      * TAdapter constructor.
@@ -27,7 +29,7 @@ public class TAdapter extends KeyAdapter {
     public void actionPerformed(ActionEvent e) {
         if (game.pieceDown) {
             game.pieceDown = false;
-            game.newPiece();
+            gGame.newPiece();
         } else {
             game.fullRow();
         }

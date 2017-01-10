@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import netris.domain.Game;
 import netris.domain.NetrisPieces;
 import netris.domain.Shape;
 
@@ -15,7 +16,7 @@ public class Board extends JPanel {
     private final int width = 10;
     private final int height = 22;
 
-    private Timer timer;
+    public Timer timer;
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
@@ -26,6 +27,7 @@ public class Board extends JPanel {
     public Shape currentPiece;
     public NetrisPieces[] board;
     public TAdapter keyListener;
+    private Game game;
 
     /**
      * Board method makes the new game.
@@ -46,7 +48,7 @@ public class Board extends JPanel {
         statusbar = netris.getStatusBar();
         board = new NetrisPieces[width * height];
         this.addKeyListener(new TAdapter(this));
-        emptyBoard();
+        game.emptyBoard();
     }
     
     private int squareWidth() {
@@ -57,41 +59,25 @@ public class Board extends JPanel {
         return (int) getSize().getHeight() / height;
     }
 
-    private NetrisPieces shapeAt(int x, int y) {
+    public NetrisPieces shapeAt(int x, int y) {
         return board[(y * width) + x];
     }
 
     /**
-     * Method starts the game.
+     * Method starts the game by calling other methods from Game class.
      */
     public void start() {
-        if (paused) {
-            return;
-        }
-        gameOn = true;
-        pieceDown = false;
-        linesRemoved = 0;
-        emptyBoard();
-
-        newPiece();
+        game.startGame();
+        game.emptyBoard();
+        game.newPiece();
         timer.start();
     }
 
     /**
-     * Method puts game to paused mode.
+     * Method puts game to paused mode by calling pauseGame method from Game class.
      */
     public void pause() {
-        if (!gameOn) {
-            return;
-        }
-        paused = !paused;
-        if (paused) {
-            timer.stop();
-            statusbar.setText("paused");
-        } else {
-            timer.start();
-            statusbar.setText(String.valueOf(linesRemoved));
-        }
+        game.pauseGame();
         repaint();
     }
 
@@ -104,7 +90,7 @@ public class Board extends JPanel {
             if (!move(currentPiece, currentX, newY - 1)) {
                 break;
             }
-            --newY;
+            newY--;
         }
         pieceDropped();
     }
@@ -119,41 +105,14 @@ public class Board extends JPanel {
     }
 
     /**
-     * Clears the board.
-     */
-    public void emptyBoard() {
-        for (int i = 0; i < height * width; ++i) {
-            board[i] = NetrisPieces.Test;
-        }
-    }
-
-    /**
      * Checks if the piece is down.
      */
     public void pieceDropped() {
-        for (int i = 0; i < 4; ++i) {
-            int x = currentX + currentPiece.x(i);
-            int y = currentY - currentPiece.y(i);
-            board[(y * width) + x] = currentPiece.getShape();
-        }
-        removeFullRow();
+        if (game.pieceIsDown()== true) {
+            removeFullRow();
         if (!pieceDown) {
-            newPiece();
-        }
-    }
-
-    /**
-     * makes a new piece to board.
-     */
-    public void newPiece() {
-        currentPiece.setRandomShape();
-        currentX = width / 2 + 1;
-        currentY = height - 1 + currentPiece.minY();
-        if (!move(currentPiece, currentX, currentY)) {
-            currentPiece.setShape(NetrisPieces.Test);
-            timer.stop();
-            gameOn = false;
-            statusbar.setText("game over");
+            game.newPiece();
+            }
         }
     }
 
@@ -167,52 +126,22 @@ public class Board extends JPanel {
      * cant't go outside gamearea.
      */
     public boolean move(Shape newPiece, int newX, int newY) {
-        for (int i = 0; i < 4; ++i) {
-            int x = newX + newPiece.x(i);
-            int y = newY - newPiece.y(i);
-            if (x < 0 || x >= width || y < 0 || y >= height) {
-                return false;
-            }
-            if (shapeAt(x, y) != NetrisPieces.Test) {
-                return false;
-            }
+        if (game.movePiece(newPiece, newX, newY)== true){
+            currentPiece = newPiece;
+            currentX = newX;
+            currentY = newY;
+            repaint();
+            return true;
         }
-        currentPiece = newPiece;
-        currentX = newX;
-        currentY = newY;
-        repaint();
-        return true;
+        return false;
     }
 
     /**
      * Removes the full row.
      */
     public void removeFullRow() {
-        int fullRows = 0;
-        for (int i = height - 1; i >= 0; i--) {
-            boolean FullRow = true;
-            for (int j = 0; j < width; j++) {
-                if (shapeAt(j, i) == NetrisPieces.Test) {
-                    FullRow = false;
-                    break;
-                }
-            }
-            if (FullRow) {
-                fullRows++;
-                for (int k = i; k < height - 1; k++) {
-                    for (int j = 0; j < width; j++) {
-                        board[(k * width) + j] = shapeAt(j, k + 1);
-                    }
-                }
-            }
-        }
-        if (fullRows > 0) {
-            linesRemoved += fullRows;
-            statusbar.setText(String.valueOf(linesRemoved));
-            pieceDown = true;
-            currentPiece.setShape(NetrisPieces.Test);
-            repaint();
-        }
+        game.checkFullRows();
+        repaint();
     }
 
     /**
