@@ -1,4 +1,4 @@
-package netris;
+package netris.domain;
 
 import java.awt.Color;
 import java.util.Random;

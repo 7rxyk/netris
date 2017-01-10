@@ -1,5 +1,6 @@
-package netris.netris.gui;
+package netris.netris;
 
+import netris.gui.Netris;
 import javax.swing.SwingUtilities;
 
 public class Main {

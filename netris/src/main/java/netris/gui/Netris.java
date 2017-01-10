@@ -1,9 +1,9 @@
-package netris.netris.gui;
+package netris.gui;
 
+import netris.gui.Board;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import netris.Board;
 
 public class Netris extends JFrame {
 

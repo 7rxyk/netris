@@ -1,10 +1,25 @@
+package netris.keyboard;
 
-package netris.netris.keyboard;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class TAdapterTest {
     
-    public TAdapterTest() {
+    @Test
+    public void test() {
+        String name = "Hello";
+        assertEquals(name, "Hello");
     }
+    
+    /**
+     * Test of actionPerformed method, of class TAdapter.
+     
+    @Test
+    public void testActionPerformed() {
+        ActionEvent e = null;
+        TAdapter instance = null;
+        instance.actionPerformed(e);
+    }*/
 
     /**
      * Test of keyPressed method, of class TAdapter.
@@ -21,3 +36,5 @@ public class TAdapterTest {
         assertTrue(game.paused);
     }*/
 }
+    
+

@@ -1,10 +1,10 @@
-package netris.netris.keyboard;
+package netris.keyboard;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import netris.Board;
-import netris.NetrisPieces;
+import netris.gui.Board;
+import netris.domain.NetrisPieces;
 
 public class TAdapter extends KeyAdapter {
 

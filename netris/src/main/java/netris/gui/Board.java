@@ -1,27 +1,28 @@
-package netris;
+package netris.gui;
 
-import netris.netris.keyboard.TAdapter;
-import netris.netris.gui.Netris;
+import netris.keyboard.TAdapter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import netris.domain.NetrisPieces;
+import netris.domain.Shape;
 
 public class Board extends JPanel {
 
     private final int width = 10;
     private final int height = 22;
 
-    private final Timer timer;
+    private Timer timer;
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
     private int linesRemoved = 0;
     public int currentX = 0;
     public int currentY = 0;
-    private final JLabel statusbar;
+    private JLabel statusbar;
     public Shape currentPiece;
     public NetrisPieces[] board;
     public TAdapter keyListener;
@@ -31,7 +32,12 @@ public class Board extends JPanel {
      *
      * @param netris given as parameter from Netris class.
      */
-    public Board(Netris netris) {
+    public Board (Netris netris) {
+        setBoard(netris);
+    }
+    
+    
+    private void setBoard(Netris netris) {
         setFocusable(true);
         currentPiece = new Shape();
         timer = new Timer(400, null);
@@ -42,7 +48,7 @@ public class Board extends JPanel {
         this.addKeyListener(new TAdapter(this));
         emptyBoard();
     }
-
+    
     private int squareWidth() {
         return (int) getSize().getWidth() / width;
     }
@@ -182,26 +188,26 @@ public class Board extends JPanel {
      * Removes the full row.
      */
     public void removeFullRow() {
-        int numberOfFullRows = 0;
-        for (int i = height - 1; i >= 0; --i) {
-            boolean fullRow = true;
-            for (int j = 0; j < width; ++j) {
+        int fullRows = 0;
+        for (int i = height - 1; i >= 0; i--) {
+            boolean FullRow = true;
+            for (int j = 0; j < width; j++) {
                 if (shapeAt(j, i) == NetrisPieces.Test) {
-                    fullRow = false;
+                    FullRow = false;
                     break;
                 }
             }
-            if (fullRow) {
-                ++numberOfFullRows;
-                for (int k = i; k < height - 1; ++k) {
-                    for (int j = 0; j < width; ++j) {
+            if (FullRow) {
+                fullRows++;
+                for (int k = i; k < height - 1; k++) {
+                    for (int j = 0; j < width; j++) {
                         board[(k * width) + j] = shapeAt(j, k + 1);
                     }
                 }
             }
         }
-        if (numberOfFullRows > 0) {
-            linesRemoved += numberOfFullRows;
+        if (fullRows > 0) {
+            linesRemoved += fullRows;
             statusbar.setText(String.valueOf(linesRemoved));
             pieceDown = true;
             currentPiece.setShape(NetrisPieces.Test);
@@ -211,6 +217,7 @@ public class Board extends JPanel {
 
     /**
      * Graphics and piece drawing done paint and drawSquare methods.
+     * @param g graphics as swing library
      */
     @Override
     public void paint(Graphics g) {

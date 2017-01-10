@@ -1,10 +1,17 @@
-package netris.netris.gui;
+package netris.gui;
 
 import javax.swing.JLabel;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class NetrisTest {
+    
+    
+    @Test
+    public void test() {
+        String name = "Hello";
+        assertEquals(name, "Hello");
+    }
     
     /**
      * Test of getStatusBar method, of class Netris.

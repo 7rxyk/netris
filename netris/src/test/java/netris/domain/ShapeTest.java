@@ -1,5 +1,7 @@
-package netris;
+package netris.domain;
 
+import netris.domain.Shape;
+import netris.domain.NetrisPieces;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
