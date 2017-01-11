@@ -1,4 +1,3 @@
-
 package netris.domain;
 
 import javax.swing.JLabel;
@@ -9,9 +8,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class GameTest {
+
     private Game game;
     private JLabel statusbar;
     private Timer timer;
+
     /*
     @Test
     public void testValuesAtBeginning() {
@@ -23,7 +24,7 @@ public class GameTest {
         assertEquals(0, game.currentX);
         assertEquals(0, game.currentY);
     }*/
-/*
+ /*
     @Test
     public void testPieceIsDown() {
         game = new Game(new Board(new Netris()));
@@ -53,8 +54,8 @@ public class GameTest {
         boolean result = game.movePiece(newPiece, newX, newY);
         assertEquals(false, result);
     }
-    
-        @Test
+
+    @Test
     public void testMovePieceInBounds() {
         game = new Game(new Board(new Netris()));
         Shape newPiece = new Shape();
@@ -71,7 +72,7 @@ public class GameTest {
         game.checkFullRows();
         assertEquals(0, game.linesRemoved);
     }
-/*
+    /*
     @Test
     public void testDrop() {
         game = new Game(new Board(new Netris()));

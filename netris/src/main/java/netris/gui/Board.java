@@ -12,7 +12,7 @@ import netris.domain.Game;
 import netris.domain.NetrisPieces;
 import netris.domain.Shape;
 
-public class Board extends JPanel {
+public final class Board extends JPanel {
 
     public final int width = 10;
     public final int height = 22;
@@ -20,7 +20,7 @@ public class Board extends JPanel {
     public Timer timer;
     private JLabel statusbar;
     public NetrisPieces[] board;
-    private final Game game;
+    public Game game;
 
     /**
      * Board method makes the new game.
@@ -29,10 +29,17 @@ public class Board extends JPanel {
      */
     public Board(Netris netris) {
         game = new Game(this);
-        setBoard(netris);
+        if (setBoard(netris) == false) {
+            setBoard(netris);
+        }
     }
-
-    private void setBoard(Netris netris) {
+    /**
+     * Sets the board what Board constructor calls.
+     *
+     * @param netris given as parameter from Netris class through Board.
+     * @return true if successfull.
+     */
+    public boolean setBoard(Netris netris) {
         setFocusable(true);
         game.currentPiece = new Shape();
         timer = new Timer(400, null);
@@ -42,22 +49,16 @@ public class Board extends JPanel {
         board = new NetrisPieces[width * height];
         this.addKeyListener(new TAdapter(this, game));
         emptyBoard();
+        return true;
     }
 
     /**
-     * Checks that performing the action goes trough.
+     * Gives the block position in the board.
      *
-     * @param e is the actionevent given as a parameter.
+     * @param x is the x coordinate.
+     * @param y is y coordinate.
+     * @return returns the new board with the piece in it.
      */
-    public void actionPerformed(ActionEvent e) {
-        if (game.pieceDown) {
-            game.pieceDown = false;
-            game.newPiece();
-        } else {
-            game.fullRow();
-        }
-    }
-
     public NetrisPieces shapeAt(int x, int y) {
         return board[(y * width) + x];
     }
@@ -113,10 +114,20 @@ public class Board extends JPanel {
         repaint();
     }
 
+    /**
+     * Calculates the width of a one piece block.
+     *
+     * @return the value of the width.
+     */
     public int squareWidth() {
         return (int) getSize().getWidth() / width;
     }
 
+    /**
+     * Calculates the hight of a one piece block.
+     *
+     * @return the value of the height.
+     */
     public int squareHeight() {
         return (int) getSize().getHeight() / height;
     }

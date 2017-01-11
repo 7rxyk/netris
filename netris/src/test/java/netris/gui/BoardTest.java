@@ -8,15 +8,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoardTest {
-    
+
     Graphics g;
     Game game;
+    Netris netris;
+    
+    public void BoardTest() {
+        Board instance = new Board(new Netris());
+        assertTrue(instance.setBoard(netris));
+    }
 
     @Test
     public void testStart() {
         Board instance = new Board(new Netris());
         instance.start();
         assertTrue(instance.timer.isRunning());
+        assertNotNull(instance.game.currentPiece.getShape());
+        assertEquals(true, instance.game.gameOn);
+        assertEquals(false, instance.game.paused);
     }
 
     @Test
@@ -25,6 +34,8 @@ public class BoardTest {
         instance.start();
         instance.pause();
         assertFalse(instance.timer.isRunning());
+        assertEquals(true, instance.game.gameOn);
+        assertEquals(true, instance.game.paused);
     }
 
     @Test
@@ -128,7 +139,7 @@ public class BoardTest {
         int expResult = 0;
         int result = i.squareWidth();
         assertEquals(expResult, result);
-}
+    }
 
     @Test
     public void testSquareHeight() {

@@ -22,10 +22,20 @@ public class Game {
     public TAdapter keyListener;
     public Board gameBoard;
 
+    /**
+     * Constructor calls Board.
+     *
+     * @param gameBoard the Board class.
+     */
     public Game(Board gameBoard) {
         this.gameBoard = gameBoard;
     }
 
+    /**
+     * Checks if the falling piece is down.
+     *
+     * @return returns true or false.
+     */
     public boolean pieceIsDown() {
         for (int i = 0; i < 4; i++) {
             int x = currentX + currentPiece.x(i);
@@ -78,17 +88,22 @@ public class Game {
         return true;
     }
 
+    /**
+     * Check full rows in the game board. If there is, calls another method to
+     * delete them.
+     *
+     */
     public void checkFullRows() {
         int fullRows = 0;
         for (int i = gameBoard.height - 1; i >= 0; i--) {
-            boolean FullRow = true;
+            boolean fullRow = true;
             for (int j = 0; j < gameBoard.width; j++) {
                 if (gameBoard.shapeAt(j, i) == NetrisPieces.Test) {
-                    FullRow = false;
+                    fullRow = false;
                     break;
                 }
             }
-            if (FullRow) {
+            if (fullRow) {
                 fullRows++;
                 for (int k = i; k < gameBoard.height - 1; k++) {
                     for (int j = 0; j < gameBoard.width; j++) {
