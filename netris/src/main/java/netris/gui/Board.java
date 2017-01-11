@@ -53,7 +53,7 @@ public class Board extends JPanel {
      * Clears the board.
      */
     public void emptyBoard() {
-        for (int i = 0; i < height * width; ++i) {
+        for (int i = 0; i < height * width; i++) {
             board[i] = NetrisPieces.Test;
         }
     }

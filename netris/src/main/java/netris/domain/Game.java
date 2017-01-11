@@ -30,7 +30,7 @@ public class Game {
     }
 
     public boolean pieceIsDown() {
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             int x = currentX + currentPiece.x(i);
             int y = currentY - currentPiece.y(i);
             gameBoard.board[(y * width) + x] = currentPiece.getShape();
@@ -65,7 +65,7 @@ public class Game {
      */
     public boolean movePiece(Shape newPiece, int newX, int newY) {
 
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             int x = newX + newPiece.x(i);
             int y = newY - newPiece.y(i);
             if (x < 0 || x >= width || y < 0 || y >= height) {

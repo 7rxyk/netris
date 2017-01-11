@@ -1,27 +1,23 @@
 package netris.gui;
 
 import javax.swing.JLabel;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class NetrisTest {
     
-    
-    @Test
-    public void test() {
-        String name = "Hello";
-        assertEquals(name, "Hello");
-    }
-    
-    /**
-     * Test of getStatusBar method, of class Netris.
-     
+    private JLabel statusbar;
+
     @Test
     public void testGetStatusBar() {
-
         Netris instance = new Netris();
-        JLabel expResult = null;
-        JLabel result = instance.getStatusBar();
-        assertEquals(expResult, result);
-    }*/
+        assertNotNull(instance.getStatusBar());
+        assertEquals(instance.getTitle(), "Netris");
+    }
+
+    @Test
+    public void testGetGame() {
+        Netris instance = new Netris();
+        assertNotNull(instance.getGame());
+    }
 }
