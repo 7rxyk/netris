@@ -128,7 +128,7 @@ public class BoardTest {
         int expResult = 0;
         int result = i.squareWidth();
         assertEquals(expResult, result);
-    }
+}
 
     @Test
     public void testSquareHeight() {

@@ -10,9 +10,6 @@ import netris.keyboard.TAdapter;
  */
 public class Game {
 
-    private final int width = 10;
-    private final int height = 22;
-
     private Timer timer;
     public boolean pieceDown = false;
     public boolean gameOn = false;
@@ -33,7 +30,7 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             int x = currentX + currentPiece.x(i);
             int y = currentY - currentPiece.y(i);
-            gameBoard.board[(y * width) + x] = currentPiece.getShape();
+            gameBoard.board[(y * gameBoard.width) + x] = currentPiece.getShape();
             return true;
         }
         return false;
@@ -44,8 +41,8 @@ public class Game {
      */
     public void newPiece() {
         currentPiece.setRandomShape();
-        currentX = width / 2 + 1;
-        currentY = height - 1 + currentPiece.minY();
+        currentX = gameBoard.width / 2 + 1;
+        currentY = gameBoard.height - 1 + currentPiece.minY();
         if (!gameBoard.move(currentPiece, currentX, currentY)) {
             currentPiece.setShape(NetrisPieces.Test);
             timer.stop();
@@ -68,7 +65,7 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             int x = newX + newPiece.x(i);
             int y = newY - newPiece.y(i);
-            if (x < 0 || x >= width || y < 0 || y >= height) {
+            if (x < 0 || x >= gameBoard.width || y < 0 || y >= gameBoard.height) {
                 return false;
             }
             if (gameBoard.shapeAt(x, y) != NetrisPieces.Test) {
@@ -83,9 +80,9 @@ public class Game {
 
     public void checkFullRows() {
         int fullRows = 0;
-        for (int i = height - 1; i >= 0; i--) {
+        for (int i = gameBoard.height - 1; i >= 0; i--) {
             boolean FullRow = true;
-            for (int j = 0; j < width; j++) {
+            for (int j = 0; j < gameBoard.width; j++) {
                 if (gameBoard.shapeAt(j, i) == NetrisPieces.Test) {
                     FullRow = false;
                     break;
@@ -93,9 +90,9 @@ public class Game {
             }
             if (FullRow) {
                 fullRows++;
-                for (int k = i; k < height - 1; k++) {
-                    for (int j = 0; j < width; j++) {
-                        gameBoard.board[(k * width) + j] = gameBoard.shapeAt(j, k + 1);
+                for (int k = i; k < gameBoard.height - 1; k++) {
+                    for (int j = 0; j < gameBoard.width; j++) {
+                        gameBoard.board[(k * gameBoard.width) + j] = gameBoard.shapeAt(j, k + 1);
                     }
                 }
             }

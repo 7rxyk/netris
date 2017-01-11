@@ -24,20 +24,6 @@ public class TAdapter extends KeyAdapter {
     }
 
     /**
-     * Checks that performing the action goes trough.
-     *
-     * @param e is the actionevent given as a parameter.
-     */
-    public void actionPerformed(ActionEvent e) {
-        if (gGame.pieceDown) {
-            gGame.pieceDown = false;
-            gGame.newPiece();
-        } else {
-            gGame.fullRow();
-        }
-    }
-
-    /**
      * keyPressed method sends forward players keyboard input.
      *
      * @param pressed is the users input on keyboard

@@ -4,6 +4,7 @@ import netris.keyboard.TAdapter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,8 +14,8 @@ import netris.domain.Shape;
 
 public class Board extends JPanel {
 
-    private final int width = 10;
-    private final int height = 22;
+    public final int width = 10;
+    public final int height = 22;
 
     public Timer timer;
     private JLabel statusbar;
@@ -26,12 +27,11 @@ public class Board extends JPanel {
      *
      * @param netris given as parameter from Netris class.
      */
-    public Board (Netris netris) {
+    public Board(Netris netris) {
         game = new Game(this);
         setBoard(netris);
     }
-    
-    
+
     private void setBoard(Netris netris) {
         setFocusable(true);
         game.currentPiece = new Shape();
@@ -43,12 +43,25 @@ public class Board extends JPanel {
         this.addKeyListener(new TAdapter(this, game));
         emptyBoard();
     }
-    
+
+    /**
+     * Checks that performing the action goes trough.
+     *
+     * @param e is the actionevent given as a parameter.
+     */
+    public void actionPerformed(ActionEvent e) {
+        if (game.pieceDown) {
+            game.pieceDown = false;
+            game.newPiece();
+        } else {
+            game.fullRow();
+        }
+    }
+
     public NetrisPieces shapeAt(int x, int y) {
         return board[(y * width) + x];
     }
 
-    
     /**
      * Clears the board.
      */
@@ -57,6 +70,7 @@ public class Board extends JPanel {
             board[i] = NetrisPieces.Test;
         }
     }
+
     /**
      * Method starts the game by calling other methods from Game class.
      */
@@ -73,7 +87,8 @@ public class Board extends JPanel {
     }
 
     /**
-     * Method puts game to paused mode by calling pauseGame method from Game class.
+     * Method puts game to paused mode by calling pauseGame method from Game
+     * class.
      */
     public void pause() {
         if (!game.gameOn) {
@@ -105,8 +120,8 @@ public class Board extends JPanel {
     public int squareHeight() {
         return (int) getSize().getHeight() / height;
     }
-    
-        /**
+
+    /**
      * Move method is handling the piece moving in board side to side.
      *
      * @param newPiece is the piece which is moved.
@@ -116,14 +131,16 @@ public class Board extends JPanel {
      * cant't go outside gamearea.
      */
     public boolean move(Shape newPiece, int newX, int newY) {
-        if (game.movePiece(newPiece, newX, newY)== true){
+        if (game.movePiece(newPiece, newX, newY) == true) {
             repaint();
             return true;
         }
         return false;
     }
+
     /**
      * Graphics and piece drawing done paint and drawSquare methods.
+     *
      * @param g graphics as swing library
      */
     @Override
