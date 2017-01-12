@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * Enum used to collect pieceshape data: piece name, coordinates int[][] and
- * color for each pieceshape.
+ * Enum used to collect piece shape data: piece name, coordinates int[][] and
+ * color for each piece shape.
  */
 public enum NetrisPieces {
 

@@ -66,13 +66,84 @@ public class GameTest {
         assertEquals(false, result);
     }
     
+     @Test
+    public void testMoveTooMuchToTheLeft() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = -10;
+        int newY = 0;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
 
+    @Test
+    public void testMoveTooMuchToTheRight() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 10;
+        int newY = 0;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testMoveTooMuchToTheUp() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 0;
+        int newY = 23;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testMoveTooMuchToTheDown() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 0;
+        int newY = -23;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testToTheLeft() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = -3;
+        int newY = 0;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testToTheRight() {
+        game = new Game(new Board(new Netris()));
+        Shape newPiece = new Shape();
+        newPiece.setShape(NetrisPieces.getRandomNetrisPieces());
+        int newX = 3;
+        int newY = 0;
+        boolean expResult = false;
+        boolean result = game.movePiece(newPiece, newX, newY);
+        assertEquals(expResult, result);
+     }
+/*
     @Test
     public void testCheckFullRows() {
         game = new Game(new Board(new Netris()));
         game.removeFullRow();
         assertEquals(0, game.linesRemoved);
-    }
+    }*/
     /*
     @Test
     public void testDrop() {

@@ -4,7 +4,6 @@ import netris.keyboard.TAdapter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -21,6 +20,7 @@ public final class Board extends JPanel {
     public JLabel statusbar;
     public NetrisPieces[] board;
     public Game game;
+    public TAdapter keyListener;
 
     /**
      * Board method makes the new game.
@@ -33,6 +33,7 @@ public final class Board extends JPanel {
             setBoard(netris);
         }
     }
+
     /**
      * Sets the board what Board constructor calls.
      *
@@ -51,20 +52,6 @@ public final class Board extends JPanel {
         emptyBoard();
         return true;
     }
-    
-        /**
-     * Checks that performing the action goes trough.
-     *
-     * @param e is the actionevent given as a parameter.
-     */
-    public void actionPerformed(ActionEvent e) {
-        if (game.pieceDown) {
-            game.pieceDown = false;
-            game.newPiece();
-        } else {
-            game.fullRow();
-        }
-    }
 
     /**
      * Gives the block position in the board.
@@ -82,7 +69,7 @@ public final class Board extends JPanel {
      */
     public void emptyBoard() {
         for (int i = 0; i < height * width; i++) {
-           board[i] = NetrisPieces.Test;
+            board[i] = NetrisPieces.Test;
         }
     }
 
@@ -97,7 +84,7 @@ public final class Board extends JPanel {
         game.pieceDown = false;
         game.linesRemoved = 0;
         emptyBoard();
-        
+
         game.newPiece();
         timer.start();
     }
@@ -120,7 +107,7 @@ public final class Board extends JPanel {
         }
         repaint();
     }
-    
+
     public void rePaint() {
         repaint();
     }
@@ -144,23 +131,6 @@ public final class Board extends JPanel {
     }
 
     /**
-     * Move method is handling the piece moving in board side to side.
-     *
-     * @param newPiece is the piece which is moved.
-     * @param newX new x coordinates.
-     * @param newY new y coordinates.
-     * @return true or false depending on if the piece moving can be done. Piece
-     * cant't go outside gamearea.
-     */
-    public boolean move(Shape newPiece, int newX, int newY) {
-        if (game.movePiece(newPiece, newX, newY) == true) {
-            repaint();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Graphics and piece drawing done paint and drawSquare methods.
      *
      * @param g graphics as swing library
@@ -178,7 +148,7 @@ public final class Board extends JPanel {
                 }
             }
         }
-        if (game.currentPiece.getShape() != NetrisPieces.Test ) {
+        if (game.currentPiece.getShape() != NetrisPieces.Test) {
             for (int i = 0; i < 4; ++i) {
                 int x = game.currentX + game.currentPiece.x(i);
                 int y = game.currentY - game.currentPiece.y(i);

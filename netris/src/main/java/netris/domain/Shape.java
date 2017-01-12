@@ -1,7 +1,7 @@
 package netris.domain;
 
 /**
- * Shapeclass: meant to put NetrisPieces into the shape object and handle the
+ * Shape class: meant to put NetrisPieces into the shape object and handle the
  * coordinates.
  */
 public final class Shape {
@@ -71,7 +71,10 @@ public final class Shape {
      * @see Random-shape is set through setShape method
      */
     public void setRandomShape() {
-        setShape(NetrisPieces.getRandomNetrisPieces());
+        this.shape = NetrisPieces.getRandomNetrisPieces();
+        if (this.shape != NetrisPieces.Test) {
+            setShape(this.shape);
+        }
     }
 
     /**

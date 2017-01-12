@@ -22,6 +22,20 @@ public class TAdapter extends KeyAdapter {
         this.game = game;
         this.gGame = gGame;
     }
+    
+     /**
+     * Checks that performing the action goes trough.
+     *
+     * @param e is the actionevent given as a parameter.
+     */
+    public void actionPerformed(ActionEvent e) {
+        if (gGame.pieceDown) {
+            gGame.pieceDown = false;
+            gGame.newPiece();
+        } else {
+            gGame.fullRow();
+        }
+    }
 
     /**
      * keyPressed method sends forward players keyboard input.
@@ -43,16 +57,16 @@ public class TAdapter extends KeyAdapter {
         }
         switch (keycode) {
             case KeyEvent.VK_LEFT:
-                this.game.move(gGame.currentPiece, gGame.currentX - 1, gGame.currentY);
+                this.gGame.movePiece(gGame.currentPiece, gGame.currentX - 1, gGame.currentY);
                 break;
             case KeyEvent.VK_RIGHT:
-                this.game.move(gGame.currentPiece, gGame.currentX + 1, gGame.currentY);
+                this.gGame.movePiece(gGame.currentPiece, gGame.currentX + 1, gGame.currentY);
                 break;
             case KeyEvent.VK_DOWN:
-                this.game.move(gGame.currentPiece.toRight(), gGame.currentX, gGame.currentY);
+                this.gGame.movePiece(gGame.currentPiece.toRight(), gGame.currentX, gGame.currentY);
                 break;
             case KeyEvent.VK_UP:
-                this.game.move(gGame.currentPiece.toLeft(), gGame.currentX, gGame.currentY);
+                this.gGame.movePiece(gGame.currentPiece.toLeft(), gGame.currentX, gGame.currentY);
                 break;
             case KeyEvent.VK_SPACE:
                 gGame.drop();
