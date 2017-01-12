@@ -126,13 +126,7 @@ public class BoardTest {
         i.emptyBoard();
         assertNotNull(i.board.length);
     }
-
-    @Test
-    public void testRemoveFullRow() {
-        Board i = new Board(new Netris());
-        i.removeFullRow();
-    }
-
+    
     @Test
     public void testSquareWidth() {
         Board i = new Board(new Netris());

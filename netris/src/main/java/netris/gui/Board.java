@@ -18,7 +18,7 @@ public final class Board extends JPanel {
     public final int height = 22;
 
     public Timer timer;
-    private JLabel statusbar;
+    public JLabel statusbar;
     public NetrisPieces[] board;
     public Game game;
 
@@ -51,6 +51,20 @@ public final class Board extends JPanel {
         emptyBoard();
         return true;
     }
+    
+        /**
+     * Checks that performing the action goes trough.
+     *
+     * @param e is the actionevent given as a parameter.
+     */
+    public void actionPerformed(ActionEvent e) {
+        if (game.pieceDown) {
+            game.pieceDown = false;
+            game.newPiece();
+        } else {
+            game.fullRow();
+        }
+    }
 
     /**
      * Gives the block position in the board.
@@ -68,7 +82,7 @@ public final class Board extends JPanel {
      */
     public void emptyBoard() {
         for (int i = 0; i < height * width; i++) {
-            board[i] = NetrisPieces.Test;
+           board[i] = NetrisPieces.Test;
         }
     }
 
@@ -83,6 +97,7 @@ public final class Board extends JPanel {
         game.pieceDown = false;
         game.linesRemoved = 0;
         emptyBoard();
+        
         game.newPiece();
         timer.start();
     }
@@ -105,12 +120,8 @@ public final class Board extends JPanel {
         }
         repaint();
     }
-
-    /**
-     * Removes the full row.
-     */
-    public void removeFullRow() {
-        game.checkFullRows();
+    
+    public void rePaint() {
         repaint();
     }
 
@@ -144,9 +155,8 @@ public final class Board extends JPanel {
     public boolean move(Shape newPiece, int newX, int newY) {
         if (game.movePiece(newPiece, newX, newY) == true) {
             repaint();
-            return true;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -167,7 +177,7 @@ public final class Board extends JPanel {
                 }
             }
         }
-        if (game.currentPiece.getShape() != NetrisPieces.Test) {
+        if (game.currentPiece.getShape() != NetrisPieces.Test ) {
             for (int i = 0; i < 4; ++i) {
                 int x = game.currentX + game.currentPiece.x(i);
                 int y = game.currentY - game.currentPiece.y(i);

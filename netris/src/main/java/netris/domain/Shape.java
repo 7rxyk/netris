@@ -112,7 +112,7 @@ public final class Shape {
         }
         Shape result = new Shape();
         result.shape = shape;
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             result.setX(i, y(i));
             result.setY(i, -x(i));
         }
@@ -131,7 +131,7 @@ public final class Shape {
         }
         Shape result = new Shape();
         result.shape = shape;
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
             result.setX(i, -y(i));
             result.setY(i, x(i));
         }

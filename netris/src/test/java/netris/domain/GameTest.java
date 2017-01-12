@@ -69,7 +69,7 @@ public class GameTest {
     @Test
     public void testCheckFullRows() {
         game = new Game(new Board(new Netris()));
-        game.checkFullRows();
+        game.removeFullRow();
         assertEquals(0, game.linesRemoved);
     }
     /*

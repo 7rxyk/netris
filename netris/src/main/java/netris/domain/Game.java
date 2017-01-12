@@ -1,7 +1,6 @@
 package netris.domain;
 
 import javax.swing.JLabel;
-import javax.swing.Timer;
 import netris.gui.Board;
 import netris.keyboard.TAdapter;
 
@@ -10,14 +9,12 @@ import netris.keyboard.TAdapter;
  */
 public class Game {
 
-    private Timer timer;
     public boolean pieceDown = false;
     public boolean gameOn = false;
     public boolean paused = false;
     public int linesRemoved = 0;
     public int currentX = 0;
     public int currentY = 0;
-    private JLabel statusbar;
     public Shape currentPiece;
     public TAdapter keyListener;
     public Board gameBoard;
@@ -32,21 +29,6 @@ public class Game {
     }
 
     /**
-     * Checks if the falling piece is down.
-     *
-     * @return returns true or false.
-     */
-    public boolean pieceIsDown() {
-        for (int i = 0; i < 4; i++) {
-            int x = currentX + currentPiece.x(i);
-            int y = currentY - currentPiece.y(i);
-            gameBoard.board[(y * gameBoard.width) + x] = currentPiece.getShape();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * makes a new piece to board.
      */
     public void newPiece() {
@@ -55,9 +37,9 @@ public class Game {
         currentY = gameBoard.height - 1 + currentPiece.minY();
         if (!gameBoard.move(currentPiece, currentX, currentY)) {
             currentPiece.setShape(NetrisPieces.Test);
-            timer.stop();
+            gameBoard.timer.stop();
             gameOn = false;
-            statusbar.setText("game over");
+            gameBoard.statusbar.setText("game over");
         }
     }
 
@@ -71,7 +53,6 @@ public class Game {
      * cant't go outside gamearea.
      */
     public boolean movePiece(Shape newPiece, int newX, int newY) {
-
         for (int i = 0; i < 4; i++) {
             int x = newX + newPiece.x(i);
             int y = newY - newPiece.y(i);
@@ -93,7 +74,7 @@ public class Game {
      * delete them.
      *
      */
-    public void checkFullRows() {
+    public void removeFullRow() {
         int fullRows = 0;
         for (int i = gameBoard.height - 1; i >= 0; i--) {
             boolean fullRow = true;
@@ -114,14 +95,15 @@ public class Game {
         }
         if (fullRows > 0) {
             linesRemoved += fullRows;
-            statusbar.setText(String.valueOf(linesRemoved));
+            gameBoard.statusbar.setText(String.valueOf(linesRemoved));
             pieceDown = true;
             currentPiece.setShape(NetrisPieces.Test);
+            gameBoard.rePaint();
         }
     }
 
     /**
-     * Method drops the piece.
+     * Method drops the piece until it can't anymore.
      */
     public void drop() {
         int newY = currentY;
@@ -135,7 +117,7 @@ public class Game {
     }
 
     /**
-     * Checks if the row is full.
+     * validates that the piece has fallen to bottom.
      */
     public void fullRow() {
         if (!gameBoard.move(currentPiece, currentX, currentY - 1)) {
@@ -143,15 +125,15 @@ public class Game {
         }
     }
 
-    /**
-     * Checks if the piece is down.
-     */
-    public void pieceDropped() {
-        if (pieceIsDown() == true) {
-            gameBoard.removeFullRow();
-            if (!pieceDown) {
-                newPiece();
-            }
+    private void pieceDropped() {
+        for (int i = 0; i < 4; ++i) {
+            int x = currentX + currentPiece.x(i);
+            int y = currentY - currentPiece.y(i);
+            gameBoard.board[(y * gameBoard.width) + x] = currentPiece.getShape();
+        }
+        removeFullRow();
+        if (!pieceDown) {
+            newPiece();
         }
     }
 }
