@@ -155,8 +155,9 @@ public final class Board extends JPanel {
     public boolean move(Shape newPiece, int newX, int newY) {
         if (game.movePiece(newPiece, newX, newY) == true) {
             repaint();
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

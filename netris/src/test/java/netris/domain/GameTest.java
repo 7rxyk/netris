@@ -65,6 +65,7 @@ public class GameTest {
         boolean result = game.movePiece(newPiece, newX, newY);
         assertEquals(false, result);
     }
+    
 
     @Test
     public void testCheckFullRows() {
