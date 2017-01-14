@@ -2,37 +2,45 @@ package netris.domain;
 
 import java.awt.Color;
 import java.util.Random;
+import java.awt.Point;
 
 /**
- * Enum used to collect piece shape data: piece name, coordinates int[][] and
- * color for each piece shape.
+ * Enum used to collect piece shape data: piece name, shape rotation positions
+ * and points[].
  */
 public enum NetrisPieces {
 
-    Test(new int[][]{{0, 0}, {0, 0}, {0, 0}, {0, 0}}, Color.BLACK),
-    Z(new int[][]{{0, -1}, {0, 0}, {-1, 0}, {-1, 1}}, Color.GRAY),
-    S(new int[][]{{0, -1}, {0, 0}, {1, 0}, {1, 1}}, Color.YELLOW),
-    I(new int[][]{{0, -1}, {0, 0}, {0, 1}, {0, 2}}, Color.GREEN),
-    T(new int[][]{{-1, 0}, {0, 0}, {1, 0}, {0, 1}}, Color.ORANGE),
-    O(new int[][]{{0, 0}, {1, 0}, {0, 1}, {1, 1}}, Color.PINK),
-    L(new int[][]{{-1, -1}, {0, -1}, {0, 0}, {0, 1}}, Color.CYAN),
-    J(new int[][]{{1, -1}, {0, -1}, {0, 0}, {0, 1}}, Color.BLUE);
+    O(0, p(-1, 0), p(0, 0), p(-1, -1), p(0, -1)),
+    I(2, p(-2, 0), p(-1, 0), p(0, 0), p(1, 0)),
+    S(2, p(0, 0), p(1, 0), p(-1, -1), p(0, -1)),
+    Z(2, p(-1, 0), p(0, 0), p(0, -1), p(1, -1)),
+    L(4, p(-1, 0), p(0, 0), p(1, 0), p(-1, -1)),
+    J(4, p(-1, 0), p(0, 0), p(1, 0), p(1, -1)),
+    T(4, p(-1, 0), p(0, 0), p(1, 0), p(0, -1));
 
-    public int[][] coordinates;
-    public Color color;
-    private static final Random RANDOM_PIECE = new Random();
+    private static final Random random = new Random();
+    private final int positions;
+    private final Point points[];
 
-    NetrisPieces(int[][] coordinates, Color color) {
-        this.coordinates = coordinates;
-        this.color = color;
+    NetrisPieces(int positions, Point... points) {
+        this.positions = positions;
+        this.points = points;
     }
 
-    public static NetrisPieces getRandomNetrisPieces() {
-        return NetrisPieces.values()[RANDOM_PIECE.nextInt(NetrisPieces.values().length)];
+    public static NetrisPieces getRandomShape() {
+        return NetrisPieces.values()[random.nextInt(NetrisPieces.values().length)];
     }
 
-    public int[][] getCoordinates() {
-        return this.coordinates;
+    public Point[] getPoints() {
+        return points;
+    }
+
+    public int getPositions() {
+        return positions;
+    }
+
+    private static Point p(int x, int y) {
+        return new Point(x, y);
     }
 
     /**
@@ -41,8 +49,22 @@ public enum NetrisPieces {
      * @param shape is the wanted NetrisPiece.
      * @return returns the color.
      */
-    public Color getColorToNetrisPieces(NetrisPieces shape) {
-        return shape.color;
-
+    public Color getColorForNetrispieces(NetrisPieces shape) {
+        switch (shape) {
+            case I:
+                return Color.YELLOW;
+            case J:
+                return Color.GRAY;
+            case L:
+                return Color.GREEN;
+            case O:
+                return Color.MAGENTA;
+            case S:
+                return Color.PINK;
+            case Z:
+                return Color.CYAN;
+            default:
+                return Color.ORANGE;
+        }
     }
 }

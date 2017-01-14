@@ -1,15 +1,6 @@
 package netris.keyboard;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-
 public class TAdapterTest {
-
-    @Test
-    public void test() {
-        String name = "Hello";
-        assertEquals(name, "Hello");
-    }
 
     /**
      * Test of actionPerformed method, of class TAdapter.

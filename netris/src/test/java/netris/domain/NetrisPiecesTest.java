@@ -1,33 +1,110 @@
 package netris.domain;
 
-import netris.domain.NetrisPieces;
 import java.awt.Color;
-import org.junit.Assert;
+import java.awt.Point;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NetrisPiecesTest {
 
     /**
+     * Test of values method, of class NetrisPieces.
+     */
+    @Test
+    public void testValues() {
+        System.out.println("values");
+        NetrisPieces[] expResult = null;
+        NetrisPieces[] result = NetrisPieces.values();
+        assertArrayEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of valueOf method, of class NetrisPieces.
      */
+    @Test
+    public void testValueOf() {
+        System.out.println("valueOf");
+        String name = "";
+        NetrisPieces expResult = null;
+        NetrisPieces result = NetrisPieces.valueOf(name);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRandomShape method, of class NetrisPieces.
+     */
+    @Test
+    public void testGetRandomShape() {
+        System.out.println("getRandomShape");
+        NetrisPieces expResult = null;
+        NetrisPieces result = NetrisPieces.getRandomShape();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPoints method, of class NetrisPieces.
+     */
+    @Test
+    public void testGetPoints() {
+        System.out.println("getPoints");
+        NetrisPieces instance = null;
+        Point[] expResult = null;
+        Point[] result = instance.getPoints();
+        assertArrayEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPositions method, of class NetrisPieces.
+     */
+    @Test
+    public void testGetPositions() {
+        System.out.println("getPositions");
+        NetrisPieces instance = null;
+        int expResult = 0;
+        int result = instance.getPositions();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getColorForNetrispieces method, of class NetrisPieces.
+     */
+    @Test
+    public void testGetColorForNetrispieces() {
+        System.out.println("getColorForNetrispieces");
+        NetrisPieces shape = null;
+        NetrisPieces instance = null;
+        Color expResult = null;
+        Color result = instance.getColorForNetrispieces(shape);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of valueOf method, of class NetrisPieces.
+     
     @Test
     public void testValueOf() {
         String name = "I";
         assertNotNull(NetrisPieces.valueOf(name));
     }
 
-    /**
-     * Test of getRandomNetrisPieces method, of class NetrisPieces.
-     */
     @Test
     public void testGetRandomNetrisPieces() {
             assertNotNull(NetrisPieces.getRandomNetrisPieces());
     }
 
-    /**
-     * Test of getCoordinates method, of class NetrisPieces.
-     */
+
     @Test
     public void testGetCoordinatesForI() {
         NetrisPieces instance = NetrisPieces.I;
@@ -67,10 +144,7 @@ public class NetrisPiecesTest {
         NetrisPieces instance = NetrisPieces.J;
         Assert.assertArrayEquals(NetrisPieces.J.getCoordinates(), instance.getCoordinates());
     } 
-
-    /**
-     * Test of getColorToNetrisPieces method, of class NetrisPieces.
-     */
+ 
     @Test
     public void testGetColorToNetrisPiecesI() {
         NetrisPieces shape = NetrisPieces.I;
@@ -126,5 +200,5 @@ public class NetrisPiecesTest {
         Color expResult = Color.ORANGE;
         Color result = instance.getColorToNetrisPieces(shape);
         assertEquals(expResult, result);
-    }
+    }*/
 }

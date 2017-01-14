@@ -1,82 +1,98 @@
 package netris.keyboard;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import netris.domain.Game;
-import netris.gui.Board;
-import netris.domain.NetrisPieces;
+import java.awt.event.KeyListener;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class TAdapter extends KeyAdapter {
+public class TAdapter implements KeyListener {
 
-    private final Board game;
-    private final Game gGame;
+       private final Map<Integer, Boolean> currentStates = new ConcurrentHashMap<Integer, Boolean>();
 
-    /**
-     * TAdapter constructor.
-     *
-     * @param game from Board class is called.
-     * @param gGame from Game class is called.
-     */
-    public TAdapter(Board game, Game gGame) {
-        this.game = game;
-        this.gGame = gGame;
+    public TAdapter() {
+        currentStates.put(KeyEvent.VK_LEFT, Boolean.FALSE);
+        currentStates.put(KeyEvent.VK_RIGHT, Boolean.FALSE);
+        currentStates.put(KeyEvent.VK_UP, Boolean.FALSE);
+        currentStates.put(KeyEvent.VK_SPACE, Boolean.FALSE);
+        currentStates.put(KeyEvent.VK_S, Boolean.FALSE);
+        currentStates.put(KeyEvent.VK_P, Boolean.FALSE);
     }
-    
-     /**
-     * Checks that performing the action goes trough.
-     *
-     * @param e is the actionevent given as a parameter.
-     */
-    public void actionPerformed(ActionEvent e) {
-        if (gGame.pieceDown) {
-            gGame.pieceDown = false;
-            gGame.newPiece();
-        } else {
-            gGame.fullRow();
+
+    public boolean left() {
+        return keyDown(KeyEvent.VK_LEFT);
+    }
+
+    public boolean right() {
+        return keyDown(KeyEvent.VK_RIGHT);
+    }
+
+    public boolean drop() {
+        return keyDown(KeyEvent.VK_SPACE);
+    }
+
+    public boolean rotate() {
+        return keyDown(KeyEvent.VK_UP);
+    }
+
+    public boolean pauseGame() {
+        return keyDown(KeyEvent.VK_P);
+    }
+
+    public boolean newGame() {
+        return keyDown(KeyEvent.VK_S);
+    }
+
+    private boolean keyDown(int keyCode) {
+        return currentStates.put(keyCode, Boolean.FALSE);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        if (currentStates.containsKey(keyEvent.getKeyCode())) {
+            currentStates.put(keyEvent.getKeyCode(), Boolean.TRUE);
         }
     }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+    
 
     /**
      * keyPressed method sends forward players keyboard input.
      *
      * @param pressed is the users input on keyboard
-     */
+    
     @Override
     public void keyPressed(KeyEvent pressed) {
-        if (!gGame.gameOn || gGame.currentPiece.getShape() == NetrisPieces.Test) {
-            return;
-        }
         int keycode = pressed.getKeyCode();
-        if (keycode == 'p' || keycode == 'P') {
-            this.game.pause();
-            return;
-        }
-        if (gGame.paused) {
-            return;
-        }
         switch (keycode) {
+            case KeyEvent.VK_S:
+                this.game = new Game();
+                game.startGame();
+                break;
             case KeyEvent.VK_LEFT:
-                this.gGame.movePiece(gGame.currentPiece, gGame.currentX - 1, gGame.currentY);
+                game.moveLeft();
                 break;
             case KeyEvent.VK_RIGHT:
-                this.gGame.movePiece(gGame.currentPiece, gGame.currentX + 1, gGame.currentY);
+                game.moveRight();
                 break;
             case KeyEvent.VK_DOWN:
-                this.gGame.movePiece(gGame.currentPiece.toRight(), gGame.currentX, gGame.currentY);
+                game.moveDown();
                 break;
             case KeyEvent.VK_UP:
-                this.gGame.movePiece(gGame.currentPiece.toLeft(), gGame.currentX, gGame.currentY);
+                game.rotate();
                 break;
             case KeyEvent.VK_SPACE:
-                gGame.drop();
+                game.drop();
                 break;
-            case 'd':
-                gGame.fullRow();
-                break;
-            case 'D':
-                gGame.fullRow();
+            case KeyEvent.VK_P:
+                game.pauseGame();
                 break;
         }
-    }
+    }*/
 }

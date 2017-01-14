@@ -54,13 +54,11 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>netris.netris.*</param>
                         <param>netris.gui.*</param>
                         <param>netris.keyboard.*</param>
                         <param>netris.domain.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>netris.netris.*</param>
                         <param>netris.gui.*</param>
                         <param>netris.keyboard.*</param>
                         <param>netris.domain.*</param>
@@ -98,7 +96,7 @@
                     <configuration>
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>netris.netris.Main</mainClass>
+                                <mainClass>netris.gui.Main</mainClass>
                                 <!-- mainClass on muotoa "fi.omanimi.superprojekti.Main" -->
                             </transformer>
                         </transformers>

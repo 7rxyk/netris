@@ -1,8 +1,8 @@
 package netris.domain;
 
+import netris.gui.Game;
 import javax.swing.JLabel;
 import javax.swing.Timer;
-import netris.gui.Board;
 import netris.gui.Netris;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class GameTest {
             assertFalse(timer.isRunning());
         }
         assertNotNull(game.currentPiece);
-    }*/
+    }
 
     @Test
     public void testMovePieceOutside() {
@@ -136,7 +136,7 @@ public class GameTest {
         boolean expResult = false;
         boolean result = game.movePiece(newPiece, newX, newY);
         assertEquals(expResult, result);
-     }
+     }*/
 /*
     @Test
     public void testCheckFullRows() {

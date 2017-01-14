@@ -1,143 +1,80 @@
 package netris.domain;
 
+import java.awt.Point;
+
 /**
  * Shape class: meant to put NetrisPieces into the shape object and handle the
- * coordinates.
+ * point coordinates and piece rotation.
  */
 public final class Shape {
 
-    public NetrisPieces shape;
-    public int coordinates[][];
+    private final Point point[];
+    private final NetrisPieces shape;
+    private final boolean startRotPosition;
 
     /**
-     * Shape sets the coordinates into Shape object.
+     * Creates the Shape object.
      *
-     * @see calls setShape method.
+     * @param piece, the Netrispiece type.
+     * @param points for the piece.
+     * @param position on how the piece is on the board.
      */
-    public Shape() {
-        coordinates = new int[4][2];
-        setShape(NetrisPieces.Test);
-    }
-
-    /**
-     * NetrisPiece shape is set to the coordinates.
-     *
-     * @param shape is the NetrisPiece shape.
-     */
-    public void setShape(NetrisPieces shape) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 2; ++j) {
-                coordinates[i][j] = shape.coordinates[i][j];
-            }
-        }
+    private Shape(NetrisPieces shape, Point[] point, boolean position) {
+        startRotPosition = position;
+        this.point = point;
         this.shape = shape;
     }
 
-    private void setX(int index, int x) {
-        coordinates[index][0] = x;
+    public static Shape getRandomShape() {
+        NetrisPieces piece = NetrisPieces.getRandomShape();
+        return new Shape(piece, piece.getPoints(), true);
     }
 
-    private void setY(int index, int y) {
-        coordinates[index][1] = y;
-    }
-
-    /**
-     * x returns x coordinate given as index parameter.
-     *
-     * @param index parameter for the wanted x coordinate.
-     * @return returns the x coordinate.
-     */
-    public int x(int index) {
-        return coordinates[index][0];
-    }
-
-    /**
-     * y returns y coordinate given as index parameter.
-     *
-     * @param index parameter for the wanted y coordinate.
-     * @return returns the y coordinate.
-     */
-    public int y(int index) {
-        return coordinates[index][1];
+    public static Shape getShape(NetrisPieces piece) {
+        return new Shape(piece, piece.getPoints(), true);
     }
 
     public NetrisPieces getShape() {
         return shape;
     }
 
-    /**
-     * Random NetrisPiece shape is got from NetrisPieces class.
-     *
-     * @see Random-shape is set through setShape method
-     */
-    public void setRandomShape() {
-        this.shape = NetrisPieces.getRandomNetrisPieces();
-        if (this.shape != NetrisPieces.Test) {
-            setShape(this.shape);
-        }
+    public Point[] getPoints() {
+        return point;
     }
 
     /**
-     * minX checks the X coordinates and return smallest one.
+     * Rotate method deals with the piece rotation. By the shape positions it
      *
-     * @return returns smallest coordinate for X.
+     * @return returns the new rotated piece to shape object to create new shape
+     * again.
      */
-    public int minX() {
-        int m = coordinates[0][0];
-        for (int i = 0; i < 4; i++) {
-            m = Math.min(m, coordinates[i][0]);
-        }
-        return m;
-    }
-
-    /**
-     * minY checks the Y coordinates and return smallest one.
-     *
-     * @return returns smallest coordinate for Y.
-     */
-    public int minY() {
-        int m = coordinates[0][1];
-        for (int i = 0; i < 4; i++) {
-            m = Math.min(m, coordinates[i][1]);
-        }
-        return m;
-    }
-
-    /**
-     * toLeft method spins the shape to the left and return new coordinates for
-     * piece.
-     *
-     * @return return new coordinates.
-     */
-    public Shape toLeft() {
-        if (shape == NetrisPieces.O) {
+    public Shape rotate() {
+        if (shape.getPositions() == 0) {
             return this;
+        } else if (shape.getPositions() == 2) {
+            if (startRotPosition) {
+                return new Shape(shape, rotateRight(point), false);
+            } else {
+                return new Shape(shape, rotateLeft(point), true);
+            }
         }
-        Shape result = new Shape();
-        result.shape = shape;
-        for (int i = 0; i < 4; i++) {
-            result.setX(i, y(i));
-            result.setY(i, -x(i));
-        }
-        return result;
+        return new Shape(shape, rotateRight(point), true);
     }
 
-    /**
-     * toRight method spins the shape to the right and return new coordinates
-     * for piece.
-     *
-     * @return return new coordinates.
-     */
-    public Shape toRight() {
-        if (shape == NetrisPieces.O) {
-            return this;
-        }
-        Shape result = new Shape();
-        result.shape = shape;
+    private Point[] rotateLeft(Point toRotate[]) {
+        return rotate(toRotate, 1, -1);
+    }
+
+    private Point[] rotateRight(Point toRotate[]) {
+        return rotate(toRotate, -1, 1);
+    }
+
+    private Point[] rotate(Point toRotate[], int x, int y) {
+        Point rotated[] = new Point[4];
         for (int i = 0; i < 4; i++) {
-            result.setX(i, -y(i));
-            result.setY(i, x(i));
+            int temp = toRotate[i].x;
+            rotated[i] = new Point(x * toRotate[i].y, y * temp);
         }
-        return result;
+        return rotated;
     }
 }
