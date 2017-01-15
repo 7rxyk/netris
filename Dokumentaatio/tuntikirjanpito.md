@@ -12,8 +12,7 @@ Päivä | Tunnit | Kuvaus
 9.1.2017 | 5h | Nuo edelliset samoja, koska github ite hävittää nää tuntipäivitykset enkä muista enää kunkin päivän tapahtumia.
 10.1.2017 | 5h | Koodin korjailua, palaset näkyvät taas pudottuaan.
 11.1.2017 | 10h | Koodin ongelmien selvittämistä, ei muutosta. Peli ei toimi
-12.1.2017 | 10h | Projektin uudelleen aloitus, luokkien uudelleenjärjestelyä ja int array pointeiksi.
-13.1.2017 | 5h | Demo huonolla versiolla. Korvaavan tetriksen jatkamista, logiikan ja netris luokan kehitystä
-14.1.2017 | 8h | Main luokka ongelma ratkaistu, näppäimistökomennot ohjattu map:in kautta --> toimii. Testien aloitusta.
-15.1.2017 | 8h | Testit 5 luokalle. uusi jar, luokkakaavio uusiksi.
-... | ... | ...
+12.1.2017 | 16h | Projektin uudelleen aloitus, luokkien uudelleenjärjestelyä ja int array pointeiksi.
+13.1.2017 | 7h | Demo huonolla versiolla. Korvaavan tetriksen jatkamista, logiikan ja netris luokan kehitystä
+14.1.2017 | 13h | Main luokka ongelma ratkaistu, näppäimistökomennot ohjattu map:in kautta --> toimii. Testien aloitusta.
+15.1.2017 | 15h | Testit 5 luokalle. uusi jar, luokkakaavio uusiksi.
