@@ -96,9 +96,7 @@ public class TAdapter implements KeyListener {
     }
 
     /**
-     * keyPressed method sends forward players keyboard input.
-     *
-     * @param pressed is the users input on keyboard
+     * Old code, don't mind this, I want to save it for later use.
      *
      * @Override public void keyPressed(KeyEvent pressed) { int keycode =
      * pressed.getKeyCode(); switch (keycode) { case KeyEvent.VK_S: this.game =

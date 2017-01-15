@@ -1,16 +1,14 @@
 package netris.gui;
 
-import java.awt.Point;
 import netris.domain.Board;
 import netris.domain.BoardCells;
-import netris.domain.Shape;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
 
-    Board board;
+    Board b;
 
     @Test
     public void testGetIterationDelay() {
@@ -100,9 +98,9 @@ public class GameTest {
     @Test
     public void testMoveLeft() {
         Game i = new Game();
-        Board b = new Board();
+        Board g = new Board();
         i.startGame();
-        BoardCells expResult = b.getShapeAt(0, 0);
+        BoardCells expResult = g.getShapeAt(0, 0);
         i.moveLeft();
         assertNotEquals(expResult, i.getBoardCells());
         assertTrue(i.moveLeft());
@@ -111,27 +109,44 @@ public class GameTest {
     @Test
     public void testMoveRight() {
         Game i = new Game();
-        Board b = new Board();
+        Board g = new Board();
         i.startGame();
-        BoardCells expResult = b.getShapeAt(0, 0);
+        BoardCells expResult = g.getShapeAt(0, 0);
         i.moveRight();
         assertNotEquals(expResult, i.getBoardCells());
         assertTrue(i.moveRight());
     }
-/**
+    
+    public void rotateReturnsTrue() {
+        Game i = new Game();
+        i.startGame();
+        assertTrue(i.rotate());
+    }
+    
+        @Test
+    public void testMoveDownWhenOneRowSpace() {
+        Game i = new Game();
+        i.startGame();
+        i.moveDown();
+        i.droppingIterations = 1;
+        if (i.droppingIterations == 1) {
+            assertEquals(0, i.getTotalScore());
+            assertNotNull(i.getNextShape());
+            assertFalse(i.dropping);
+        }
+        //assertEquals(0, i.droppingIterations);   
+    }
+
     @Test
     public void testMoveDownWhenNoSpace() {
         Game i = new Game();
         i.startGame();
         i.moveDown();
-        if (board.canCurrentPieceMoveDown()== false) {
-            if (i.droppingIterations == 0) {
-                assertTrue(i.isGameOver());
-                assertFalse(i.gameOn);
-                assertTrue(i.moveDown());
-            }
-        }
-    }*/
+        i.droppingIterations = 0;
+        Assert.assertFalse(i.isGameOver());
+        Assert.assertTrue(i.gameOn);
+        Assert.assertTrue(i.moveDown());  
+    }
 
     @Test
     public void testMoveDownWhenSpace() {

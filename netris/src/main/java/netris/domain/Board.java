@@ -10,7 +10,7 @@ public class Board {
     private Point pieceRotationAxel = new Point(DROP_X, DROP_Y);
     private Shape currentPiece;
     private BoardCells[][] board = new BoardCells[WIDTH][HEIGHT];
-    private int fullRows = 0;
+    public int fullRows = 0;
 
     /**
      * Creates the empty board to board object.
@@ -119,12 +119,15 @@ public class Board {
 
     /**
      * Method moves piece down and calls another method to check full rows..
+     * @return true or false is succesful;
      */
-    public void moveDown() {
+    public boolean moveDown() {
         if (canCurrentPieceMoveDown()) {
             move(0, -1);
             removeFullRows();
+            return true;
         }
+        return false;
     }
 
     /**
