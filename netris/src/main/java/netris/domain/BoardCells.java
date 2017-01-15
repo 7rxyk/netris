@@ -13,21 +13,27 @@ public class BoardCells {
         piece = null;
     }
 
-    private BoardCells(NetrisPieces type) {
-        piece = type;
+    /**
+     * Puts parameter NetrisPiece into to the this.piece object.
+     *
+     * @param piece a Netrispiece.
+     */
+    public BoardCells(NetrisPieces piece) {
+        this.piece = piece;
     }
 
     /**
      * Method declares if the cell is empty.
-     * @return null piece.
+     *
+     * @return null for piece.
      */
-
     public boolean isEmpty() {
         return piece == null;
     }
 
     /**
      * Method to get the Netrispiece.
+     *
      * @return Netrispiece.
      */
     public NetrisPieces getNetrisPieces() {
@@ -36,6 +42,7 @@ public class BoardCells {
 
     /**
      * Makes the cell for the piece.
+     *
      * @param piece Netrispiece as a parameter
      * @return the new boardcell for the piece
      */
@@ -45,6 +52,7 @@ public class BoardCells {
 
     /**
      * Boardcell method where the empty BoardCell array is returned.
+     *
      * @param size of array as parameter.
      * @return the cells.
      */

@@ -15,21 +15,32 @@ public final class Shape {
     /**
      * Creates the Shape object.
      *
-     * @param piece, the Netrispiece type.
-     * @param points for the piece.
+     * @param shape the Netrispiece shape.
+     * @param point for the piece.
      * @param position on how the piece is on the board.
      */
-    private Shape(NetrisPieces shape, Point[] point, boolean position) {
-        startRotPosition = position;
+    public Shape(NetrisPieces shape, Point[] point, boolean position) {
+        this.startRotPosition = position;
         this.point = point;
         this.shape = shape;
     }
 
+    /**
+     * Method gets a random Netrispiece.
+     *
+     * @return the piece to shape object.
+     */
     public static Shape getRandomShape() {
         NetrisPieces piece = NetrisPieces.getRandomShape();
         return new Shape(piece, piece.getPoints(), true);
     }
 
+    /**
+     * Makes the shape for the Netrispiece.
+     *
+     * @param piece as parameter.
+     * @return new shape object where piece id used.
+     */
     public static Shape getShape(NetrisPieces piece) {
         return new Shape(piece, piece.getPoints(), true);
     }
@@ -43,7 +54,7 @@ public final class Shape {
     }
 
     /**
-     * Rotate method deals with the piece rotation. By the shape positions it
+     * Rotate method deals with the piece rotation. By the shape positions it.
      *
      * @return returns the new rotated piece to shape object to create new shape
      * again.

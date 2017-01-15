@@ -12,13 +12,13 @@ public class Game {
     public boolean pieceDown = false;
     public boolean gameOn = false;
     private final Board board;
-    private Shape nextShape;
+    public Shape nextShape;
 
     private boolean paused = false;
-    private boolean dropping = false;
+    public boolean dropping = false;
     private boolean gameOver = false;
 
-    private int droppingIterations;
+    public int droppingIterations;
     private int totalScore;
 
     /**
@@ -90,19 +90,39 @@ public class Game {
         return gameOver;
     }
 
+    /**
+     * Pauses the game.
+     */
     public void pauseGame() {
         paused = !paused;
     }
 
-    public void moveLeft() {
+    /**
+     * Starts the game and sets parameter true or false and get next piece.
+     *
+     * @return true is passes the command to another method.
+     */
+    public boolean moveLeft() {
         board.moveLeft();
+        return true;
     }
 
-    public void moveRight() {
+    /**
+     * Moves piece to the right.
+     *
+     * @return true is passes the command to another method.
+     */
+    public boolean moveRight() {
         board.moveRight();
+        return true;
     }
 
-    public void moveDown() {
+    /**
+     * Moves the piece down.
+     *
+     * @return true if goes through the if else things.
+     */
+    public boolean moveDown() {
         if (!board.canCurrentPieceMoveDown()) {
             if (droppingIterations == 0) {
                 gameOn = false;
@@ -118,12 +138,22 @@ public class Game {
             board.moveDown();
             droppingIterations++;
         }
+        return true;
     }
 
-    public void rotate() {
+    /**
+     * Rotates the piece.
+     *
+     * @return true is passes the command to another method.
+     */
+    public boolean rotate() {
         board.rotate();
+        return true;
     }
 
+    /**
+     * Drops the piece.
+     */
     public void drop() {
         dropping = true;
     }

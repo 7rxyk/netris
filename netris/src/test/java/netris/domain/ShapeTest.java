@@ -1,6 +1,6 @@
 package netris.domain;
 
-import java.awt.Point;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,146 +8,129 @@ public class ShapeTest {
 
     @Test
     public void testGetRandomShape() {
-        Shape expResult = null;
         Shape result = Shape.getRandomShape();
-        assertEquals(expResult, result);
-
+        assertNotNull(result);
     }
 
     @Test
-    public void testGetShape_NetrisPieces() {
-        System.out.println("getShape");
-        NetrisPieces piece = null;
-        Shape expResult = null;
-        Shape result = Shape.getShape(piece);
-        assertEquals(expResult, result);
+    public void testGetPointsForS() {
+        Shape i = new Shape(NetrisPieces.S, NetrisPieces.S.getPoints(), true);
+        assertArrayEquals(NetrisPieces.S.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForZ() {
+        Shape i = new Shape(NetrisPieces.Z, NetrisPieces.Z.getPoints(), true);
+        assertArrayEquals(NetrisPieces.Z.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForO() {
+        Shape i = new Shape(NetrisPieces.O, NetrisPieces.O.getPoints(), true);
+        assertArrayEquals(NetrisPieces.O.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForJ() {
+        Shape i = new Shape(NetrisPieces.J, NetrisPieces.J.getPoints(), true);
+        assertArrayEquals(NetrisPieces.J.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForT() {
+        Shape i = new Shape(NetrisPieces.T, NetrisPieces.T.getPoints(), true);
+        assertArrayEquals(NetrisPieces.T.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForL() {
+        Shape i = new Shape(NetrisPieces.L, NetrisPieces.L.getPoints(), true);
+        assertArrayEquals(NetrisPieces.L.getPoints(), i.getPoints());
+    }
+        @Test
+    public void testGetPointsForI() {
+        Shape i = new Shape(NetrisPieces.I, NetrisPieces.I.getPoints(), true);
+        assertArrayEquals(NetrisPieces.I.getPoints(), i.getPoints());
     }
 
     @Test
-    public void testGetPoints() {
-        System.out.println("getPoints");
-        Shape instance = null;
-        Point[] expResult = null;
-        Point[] result = instance.getPoints();
-        assertArrayEquals(expResult, result);
-
+    public void testRotateI() {
+        Shape irot = new Shape(NetrisPieces.I, NetrisPieces.I.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.I, NetrisPieces.I.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
     }
-
-    @Test
-    public void testRotate() {
-        System.out.println("rotate");
-        Shape instance = null;
-        Shape expResult = null;
-        Shape result = instance.rotate();
-        assertEquals(expResult, result);
+        @Test
+    public void testRotateS() {
+        Shape irot = new Shape(NetrisPieces.S, NetrisPieces.S.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.S, NetrisPieces.S.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
     }
-    /**
+        @Test
+    public void testRotateZ() {
+        Shape irot = new Shape(NetrisPieces.Z, NetrisPieces.Z.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.Z, NetrisPieces.Z.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
+    }
+        @Test
+    public void testRotateO() {
+        Shape irot = new Shape(NetrisPieces.O, NetrisPieces.O.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.O, NetrisPieces.O.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
+    }
+        @Test
+    public void testRotateT() {
+        Shape irot = new Shape(NetrisPieces.T, NetrisPieces.T.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.T, NetrisPieces.T.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
+    }
+        @Test
+    public void testRotateJ() {
+        Shape irot = new Shape(NetrisPieces.J, NetrisPieces.J.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.J, NetrisPieces.J.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
+    }
+        @Test
+    public void testRotateL() {
+        Shape irot = new Shape(NetrisPieces.L, NetrisPieces.L.getPoints(), true);
+        Shape inot = new Shape(NetrisPieces.L, NetrisPieces.L.getPoints(), true);
+        irot.rotate();
+        Assert.assertArrayEquals(inot.getPoints(), irot.getPoints());
+    }
 
     @Test
     public void testGetShapeS() {
-        Shape instance = new Shape();
-        instance.setShape(NetrisPieces.S);
-        assertEquals(NetrisPieces.S, instance.getShape());
-    }
-
-    @Test
-    public void testSetRandomShape() {
-        Shape instance = new Shape();
-        instance.setRandomShape();
-        assertNotNull(instance.getShape());
-    }
- 
-    @Test
-    public void testToLeftForI() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.S);
-        s.toLeft();
-        assertEquals(1, s.x(2));
-    }
-   
-        @Test
-    public void testToLeftForJ() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.J);
-        s.toLeft();
-        assertEquals(0, s.x(2));
+        Shape i = new Shape(NetrisPieces.S, NetrisPieces.S.getPoints(), true);
+        assertEquals(NetrisPieces.S, i.getShape());
     }
         @Test
-    public void testToLeftForL() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.L);
-        s.toLeft();
-        assertEquals(0, s.x(2));
+    public void testGetShapeI() {
+        Shape i = new Shape(NetrisPieces.I, NetrisPieces.I.getPoints(), true);
+        assertEquals(NetrisPieces.I, i.getShape());
     }
         @Test
-    public void testToLeftForO() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.O);
-        assertNotNull(s.toLeft());
-    } 
-   
-        @Test
-    public void testToLeftForT() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.T);
-        s.toLeft();
-        assertEquals(1, s.x(2));
+    public void testGetShapeT() {
+        Shape i = new Shape(NetrisPieces.T, NetrisPieces.T.getPoints(), true);
+        assertEquals(NetrisPieces.T, i.getShape());
     }
         @Test
-    public void testToLeftForZ() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.Z);
-        s.toLeft();
-        assertEquals(-1, s.x(2));
+    public void testGetShapeZ() {
+        Shape i = new Shape(NetrisPieces.Z, NetrisPieces.Z.getPoints(), true);
+        assertEquals(NetrisPieces.Z, i.getShape());
     }
         @Test
-    public void testToLeftForS() {
-        Shape s = new Shape();
-        s.setShape(NetrisPieces.S);
-        s.toLeft();
-        assertEquals(1, s.x(2));
-    }
-
-    @Test
-    public void testSetShapeI() {
-        NetrisPieces shape = NetrisPieces.I;
-        Shape instance = new Shape();
-        instance.setShape(shape);
+    public void testGetShapeO() {
+        Shape i = new Shape(NetrisPieces.O, NetrisPieces.O.getPoints(), true);
+        assertEquals(NetrisPieces.O, i.getShape());
     }
         @Test
-    public void testSetShapeJ() {
-        NetrisPieces shape = NetrisPieces.J;
-        Shape instance = new Shape();
-        instance.setShape(shape);
+    public void testGetShapeL() {
+        Shape i = new Shape(NetrisPieces.L, NetrisPieces.L.getPoints(), true);
+        assertEquals(NetrisPieces.L, i.getShape());
     }
         @Test
-    public void testSetShapeL() {
-        NetrisPieces shape = NetrisPieces.L;
-        Shape instance = new Shape();
-        instance.setShape(shape);
+    public void testGetShapeJ() {
+        Shape i = new Shape(NetrisPieces.J, NetrisPieces.J.getPoints(), true);
+        assertEquals(NetrisPieces.J, i.getShape());
     }
-        @Test
-    public void testSetShapeO() {
-        NetrisPieces shape = NetrisPieces.O;
-        Shape instance = new Shape();
-        instance.setShape(shape);
-    }
-        @Test
-    public void testSetShapeT() {
-        NetrisPieces shape = NetrisPieces.T;
-        Shape instance = new Shape();
-        instance.setShape(shape);
-    }
-        @Test
-    public void testSetShapeZ() {
-        NetrisPieces shape = NetrisPieces.Z;
-        Shape instance = new Shape();
-        instance.setShape(shape);
-    }
-        @Test
-    public void testSetShapeS() {
-        NetrisPieces shape = NetrisPieces.S;
-        Shape instance = new Shape();
-        instance.setShape(shape);
-    }*/
 }

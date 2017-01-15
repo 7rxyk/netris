@@ -53,14 +53,21 @@
                 <artifactId>pitest-maven</artifactId>
                 <version>1.1.8</version>
                 <configuration>
+                    <excludedClasses>
+                        <param>netris.keyboard.*</param>
+                        <param>netris.gui.Netris*</param>     
+                        <param>netris.gui.Main</param>                               
+                    </excludedClasses>
+                    <excludedMethods>
+                        <excludedMethod>netris.domain.Board.moveLeft</excludedMethod>
+                        <excludedMethod>netris.domain.Board.moveDown</excludedMethod>
+                    </excludedMethods>
                     <targetClasses>
                         <param>netris.gui.*</param>
-                        <param>netris.keyboard.*</param>
                         <param>netris.domain.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>netris.gui.*</param>
-                        <param>netris.keyboard.*</param>
                         <param>netris.domain.*</param>
                     </targetTests>
                 </configuration>
@@ -84,26 +91,26 @@
                 <version>2.10.3</version>
             </plugin> 
             <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>2.4.3</version>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                    <configuration>
-                        <transformers>
-                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>netris.gui.Main</mainClass>
-                                <!-- mainClass on muotoa "fi.omanimi.superprojekti.Main" -->
-                            </transformer>
-                        </transformers>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>netris.gui.Main</mainClass>
+                                    <!-- mainClass on muotoa "fi.omanimi.superprojekti.Main" -->
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

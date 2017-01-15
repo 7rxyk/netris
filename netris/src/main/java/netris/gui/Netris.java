@@ -17,25 +17,25 @@ import netris.keyboard.TAdapter;
 public class Netris extends Canvas {
     private Game game = new Game();
     private BufferStrategy strategy;
-    private final int BOARD_X = 240;
-    private final int BOARD_Y = 20;
+    private final int boardX = 240, boardY = 20;
     public TAdapter keyboard = new TAdapter();
     private long iteration = System.currentTimeMillis();
     private static final int PIECESIZE = 20;
 
+    /**
+     * Costructor for netris, where all the required game things are set.
+     */
     public Netris() {
         JFrame gameWindow = new JFrame("Netris");
         JPanel panel = (JPanel) gameWindow.getContentPane();
         panel.setPreferredSize(new Dimension(520, 470));
         panel.setLayout(null);
-
         setBounds(0, 0, 520, 470);
         panel.add(this);
         setIgnoreRepaint(true);
         gameWindow.pack();
         gameWindow.setResizable(false);
         gameWindow.setVisible(true);
-        
         gameWindow.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -56,8 +56,8 @@ public class Netris extends Canvas {
             }
             if (game.isPlaying()) {
                 if (!game.isPaused()) {
-                    tetrisLoop();
-                } 
+                    netrisLoop();
+                }
                 if (keyboard.pauseGame()) {
                     game.pauseGame();
                 }
@@ -69,8 +69,8 @@ public class Netris extends Canvas {
             draw();
         }
     }
-    
-    void tetrisLoop() {
+
+    void netrisLoop() {
         if (game.isDropping()) {
             game.moveDown();
         } else if (System.currentTimeMillis() - iteration >= game.getIterationDelay()) {
@@ -87,8 +87,11 @@ public class Netris extends Canvas {
             game.drop();
         }
     }
-    
-        public void draw() {
+
+    /**
+     * Graphics for the game below here.
+     */
+    public void draw() {
         Graphics2D g = getGameGraphics();
         drawEmptyBoard(g);
         drawHelp(g);
@@ -115,7 +118,7 @@ public class Netris extends Canvas {
         BoardCells[][] cells = game.getBoardCells();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 20; j++) {
-                drawNetrisPiece(g, BOARD_X + i * 20, BOARD_Y + (19 - j) * 20, getBoardCellColor(cells[i][j]));
+                drawNetrisPiece(g, boardX + i * 20, boardY + (19 - j) * 20, getBoardCellColor(cells[i][j]));
             }
         }
     }
@@ -124,7 +127,7 @@ public class Netris extends Canvas {
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 0, 520, 470);
         g.setColor(Color.GRAY);
-        g.drawRect(BOARD_X - 1, BOARD_Y - 1, 10 * PIECESIZE + 2, 20 * PIECESIZE + 2);
+        g.drawRect(boardX - 1, boardY - 1, 10 * PIECESIZE + 2, 20 * PIECESIZE + 2);
     }
 
     private void drawStatus(Graphics2D g) {

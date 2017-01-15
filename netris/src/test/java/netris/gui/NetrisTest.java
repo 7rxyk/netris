@@ -1,19 +1,26 @@
 package netris.gui;
 
-public class NetrisTest {
-/**
-    private JLabel statusbar;
+import org.junit.Test;
 
+public class NetrisTest {
+
+/**
     @Test
-    public void testGetStatusBar() {
+    public void testGameLoop() {
         Netris instance = new Netris();
-        assertNotNull(instance.getStatusBar());
-        assertEquals(instance.getTitle(), "Netris");
+        instance.gameLoop();
     }
 
     @Test
-    public void testGetGame() {
+    public void testNetrisLoop() {
         Netris instance = new Netris();
-        assertNotNull(instance.getGame());
+        instance.netrisLoop();
+    }
+
+    @Test
+    public void testDraw() {
+        System.out.println("draw");
+        Netris instance = new Netris();
+        instance.draw();
     }*/
 }

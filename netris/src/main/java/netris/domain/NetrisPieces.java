@@ -18,7 +18,7 @@ public enum NetrisPieces {
     J(4, p(-1, 0), p(0, 0), p(1, 0), p(1, -1)),
     T(4, p(-1, 0), p(0, 0), p(1, 0), p(0, -1));
 
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private final int positions;
     private final Point points[];
 
@@ -28,7 +28,7 @@ public enum NetrisPieces {
     }
 
     public static NetrisPieces getRandomShape() {
-        return NetrisPieces.values()[random.nextInt(NetrisPieces.values().length)];
+        return NetrisPieces.values()[RANDOM.nextInt(NetrisPieces.values().length)];
     }
 
     public Point[] getPoints() {
