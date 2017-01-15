@@ -15,4 +15,5 @@ Päivä | Tunnit | Kuvaus
 12.1.2017 | 10h | Projektin uudelleen aloitus, luokkien uudelleenjärjestelyä ja int array pointeiksi.
 13.1.2017 | 5h | Demo huonolla versiolla. Korvaavan tetriksen jatkamista, logiikan ja netris luokan kehitystä
 14.1.2017 | 8h | Main luokka ongelma ratkaistu, näppäimistökomennot ohjattu map:in kautta --> toimii. Testien aloitusta.
+15.1.2017 | 8h | Testit 5 luokalle. uusi jar, luokkakaavio uusiksi.
 ... | ... | ...
