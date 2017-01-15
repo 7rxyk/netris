@@ -4,13 +4,13 @@ Käyttäjät: Pelaaja
 
 Toiminnot:
 
-Alkuun peliin voisi tulla start nappula, joka aloittaa pelin.
-Pelin alettua palikoita alkaa putoilla ja käyttäjä voi tietyillä pyörittää palikoita haluamaansa asentoon ja liikuttaa vasemmalla tai oikealla nuolinäppäimellä niitä peliruudun alueella.
-Myös joku lopeta peli nappula voisi olla hyvä, yleensä kyllästyy ennen kuin häviää ja pause
+S painikkeella peli alkaa.
+Pelin alettua palikoita alkaa putoilla ja käyttäjä voi tietyillä pyörittää palikoita haluamaansa asentoon (ylänuoli) ja liikuttaa vasemmalla tai oikealla nuolinäppäimellä niitä peliruudun alueella.
+Pause eli p painike pistää pelin tauolle.
 
 Netris pelin rakenne:
 
-Pelin aloitus tapahtuu Main-luokan kautta, joka kutsuu uutta Netrispeliä. Netrisluokka on yhteydessä Board-luokkaan sekä TAdapter-luokan kautta, että suoraan. Board-luokan konstruktori kutsuu uutta Netrispeliä. TAdapter on käyttäjän antamien näppäimistökomentojen vastaanottaja ja ohjaa luokan kautta pyynnöt toisten luokkien metodeille suorittaa käyttäjän haluama tehtävä. Board-Luokan tehtävänä on hoitaa grafiikan ja pelin start ja pause toiminnallisuus. Board-luokasta on yhteys Game-luokkaan, jonne on laitettu suurin osa pelin logiikasta, eli palojen siirrot, täysien rivien tarkistus jne. Game-luokasta yhteys Shape-luokkaan, jossa hoidetaan netrispala-kohtainen toiminnallisuus ja tästä luokasta on yhteys NetrisPieces luokkaan, joka on käytännössä vain kunkin palatyypin koordinaattien ja värien säilöntä enumina.
+Pelin aloitus tapahtuu Main-luokan kautta, joka kutsuu uutta Netrispeliä. Netrisluokka on yhteydessä TAdapter-luokkaan, jolla se hoitaa näppäinkomennot pelin tiimellyksessä. Netris-luokka on lisäksi yhteydessä Game-luokkaan, jossa hoidetaan pelin logiikka ja eri metodikutsut Board-luokkaan.  Board-Luokan tehtävänä on hoitaa osan pelin toiminnallisuudesta, kuten pisteinen lasku, rivien poistoa jne. Board-luokasta on yhteys BoardCell-luokkaan, joka on käytännössä pelialustana toimia 2d array. BoardCell-luokasta yhteys Shape-luokkaan, jossa hoidetaan netrispala-kohtainen toiminnallisuus ja tästä luokasta on yhteys NetrisPieces luokkaan, joka on käytännössä vain kunkin palatyypin koordinaattien ja värien säilöntä enumina.
 
 
 ![Alt text](/Dokumentaatio/UusinLuokkis.png "Luokkakaavio Netriksestä")
